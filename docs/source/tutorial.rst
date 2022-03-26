@@ -16,7 +16,7 @@ Solving a 2x2 normal-form game
 ------------------------------
 
 To define a one-shot game, use the
-``sgame.one_shot_game(payoff_matrix)`` function:
+:py:func:`sgame.one_shot_game(payoff_matrix)` function:
 
 The ``payoff_matrix`` parameter should be array-like with dimensions ...
 

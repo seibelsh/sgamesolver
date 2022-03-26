@@ -5,7 +5,7 @@ Welcome! This is the documentation for sGameSolver.
 
 Get started with the :doc:`tutorial`.
 
-Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`.
+Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
 
 
 Contents

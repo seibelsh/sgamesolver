@@ -1,0 +1,7 @@
+python
+numpy
+# scipy         # optional
+# matplotlib    # optional
+# numdifftools  # optional
+# cython        # optional
+# gxx_linux-64  # optional

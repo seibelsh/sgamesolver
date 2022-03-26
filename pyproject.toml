@@ -1,0 +1,7 @@
+[project]
+name = "sGameSolver"
+authors = [
+    {name = "Steffen Eibelshäuser", email = "steffen.eibelshaeuser@gmail.com"},
+    {name = "David Poensgen", email = "davidpoensgen@gmail.com"},
+]
+dynamic = ["version", "description"]

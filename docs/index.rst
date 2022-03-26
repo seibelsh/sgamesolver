@@ -13,9 +13,9 @@ Contents
 
 .. toctree::
 
-   tutorial
-   sgame
-   homotopies
-   solver
-   advanced
-   examples
+   source/tutorial
+   source/sgame
+   source/homotopies
+   source/solver
+   source/advanced
+   source/examples

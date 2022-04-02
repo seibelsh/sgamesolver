@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'sGameSolver'
-copyright = '2022, Eibelshäuser & Poensgen'
+copyright = '2018, Eibelshäuser & Poensgen'
 author = 'Steffen Eibelshäuser and David Poensgen'
 
 release = '0.1'

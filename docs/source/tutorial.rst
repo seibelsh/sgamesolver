@@ -18,7 +18,7 @@ Solving a 2x2 normal-form game
 
 The :py:class:`SGame` class is used to define general (stochastic) games.
 To define a simple one-shot game, use the
-:py:func:`SGame.one_shot_game(payoff_matrix)` method.
+:py:meth:`.one_shot_game(payoff_matrix)` method.
 
 The ``payoff_matrix`` parameter should be array-like with
 dimensions :math:`N \times A_1 \times \dots \times A_N`,

@@ -17,7 +17,7 @@ Solving a 2x2 normal-form game
 ------------------------------
 
 To define a one-shot game, use the
-:py:func:`SGame.one_shot_game(payoff_matrix)` function:
+:py:func:`SGame.one_shot_game(payoff_matrix)` function.
 
 The ``payoff_matrix`` parameter should be array-like with
 dimensions :math:`N \times A_1 \times \dots \times A_N`,
@@ -27,8 +27,11 @@ and :math:`A_n` denotes the number of actions of player :math:`n`.
 To solve a specified ``SGame``, choose one of the implemented :doc:`homotopies`
 and apply the :py:func:`.solve()` method.
 
-Simple example with two players and two actions each:
-`Prisoner's Dilemma <https://en.wikipedia.org/wiki/Prisoner%27s_dilemma>`_
+Simple example with two players and two actions each: |wiki_link|
+
+.. |wiki_link| raw:: html
+
+   <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a>
 
 .. code-block:: python
 

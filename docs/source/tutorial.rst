@@ -16,23 +16,25 @@ python environment using pip:
 Solving a 2x2 normal-form game
 ------------------------------
 
-The :py:class:`SGame` class is used to define general (stochastic) games.
-To define a simple one-shot game, use the
-:py:meth:`.one_shot_game(payoff_matrix)` method.
+To define a one-shot game, use the
+:py:class:`SGame.one_shot_game(payoff_matrix)` method.
 
 The ``payoff_matrix`` parameter should be array-like with
 dimensions :math:`N \times A_1 \times \dots \times A_N`,
 where :math:`N` denotes the number of players
 and :math:`A_n` denotes the number of actions of player :math:`n`.
 
-To solve a specified ``SGame``, choose one of the implemented :doc:`homotopies`
-and apply the :py:func:`.solve()` method.
+To solve a specified :py:class:`SGame`, choose one of the
+implemented :doc:`homotopies`and apply the :py:class:`.solve()` method.
 
-Simple example with two players and two actions each: |wiki_link|
+Simple example with two players and two actions each: |wiki_link|.
 
 .. |wiki_link| raw:: html
 
    <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a>
+
+Two players, each with two actions *cooperate* and *defect*.
+Both defecting is the unique equilibrium.
 
 .. code-block:: python
 
@@ -61,3 +63,6 @@ Simple example with two players and two actions each: |wiki_link|
    >>> +++++++ state0 +++++++
    >>> player0: v=-2.00, s=[0.000 1.000]
    >>> player1: v=-2.00, s=[0.000 1.000]
+
+   Both players play the second action *defect* with probability one.
+   Expected payoffs are :math:`-2`.

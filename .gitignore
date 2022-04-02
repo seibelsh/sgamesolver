@@ -1,10 +1,14 @@
-__pycache__
+__pycache__/
 **/__pycache__/
+**/__build__
+*.c
+*.so
+build/
+*.egg-info/
 
-.git
-.pytest_cache
-.vscode
-.spyproject
 docs/_build/
 
-.requirements-dev.txt
+.git/
+.pytest_cache/
+.spyproject/
+.vscode/

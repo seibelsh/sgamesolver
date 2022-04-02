@@ -61,5 +61,5 @@ Both defecting is the unique equilibrium.
    >>> player0: v=-2.00, s=[0.000 1.000]
    >>> player1: v=-2.00, s=[0.000 1.000]
 
-   Both players play the second action *defect* with probability one.
-   Expected payoffs are :math:`-2`.
+Both players play the second action *defect* with probability one.
+Expected payoffs are :math:`-2`.

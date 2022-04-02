@@ -6,21 +6,29 @@ Tutorial
 Installation
 ------------
 
-To use sGameSolver, first install it using pip:
+To use sGameSolver, first install it into your preferred
+python environment using pip:
 
 .. code-block:: console
 
-   $ pip install sgamesolver
+   (.venv) $ pip install sgamesolver
 
 Solving a 2x2 normal-form game
 ------------------------------
 
 To define a one-shot game, use the
-:py:func:`sgame.one_shot_game(payoff_matrix)` function:
+:py:func:`SGame.one_shot_game(payoff_matrix)` function:
 
-The ``payoff_matrix`` parameter should be array-like with dimensions ...
+The ``payoff_matrix`` parameter should be array-like with
+dimensions :math:`N \times A_1 \times \dots \times A_N`,
+where :math:`N` denotes the number of players
+and :math:`A_n` denotes the number of actions of player :math:`n`.
 
-For example: `Prisoner's Dilemma <https://en.wikipedia.org/wiki/Prisoner%27s_dilemma>`_
+To solve a specified ``SGame``, choose one of the implemented :doc:`homotopies`
+and apply the :py:func:`.solve()` method.
+
+Simple example with two players and two actions each:
+`Prisoner's Dilemma <https://en.wikipedia.org/wiki/Prisoner%27s_dilemma>`_
 
 .. code-block:: python
 
@@ -28,11 +36,14 @@ For example: `Prisoner's Dilemma <https://en.wikipedia.org/wiki/Prisoner%27s_dil
    from sgamesolver import SGame
    from sgamesolver.homotopy import QRE
 
-   # define game: prisoner's dilemma
-   game = SGame.one_shot_game(payoff_matrix=np.array([[[-1, -3],
-                                                       [ 0, -2]],
-                                                      [[-1,  0],
-                                                       [-3, -2]]]))
+   # prisoner's dilemma
+   payoff_matrix = np.array([[[-1, -3],
+                              [ 0, -2]],
+                             [[-1,  0],
+                              [-3, -2]]])
+
+   # define game
+   game = SGame.one_shot_game(payoff_matrix=payoff_matrix)
 
    # choose homotopy: quantal response equilibrium
    homotopy = QRE(game=game)

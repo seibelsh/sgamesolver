@@ -65,6 +65,10 @@ Both players defecting is the unique equilibrium.
 
    print(homotopy.equilibrium)
 
+Output:
+
+.. code-block:: console
+
    >>> +++++++ state0 +++++++
    >>> player0: v=-2.00, s=[0.000 1.000]
    >>> player1: v=-2.00, s=[0.000 1.000]

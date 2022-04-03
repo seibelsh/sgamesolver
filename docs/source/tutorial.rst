@@ -5,7 +5,7 @@ Installation
 ------------
 
 To use sGameSolver, first install it into your preferred
-python environment using pip:
+Python environment using pip:
 
 .. code-block:: console
 
@@ -17,11 +17,6 @@ Solving a 2x2 normal-form game
 To define a one-shot game, use the
 :py:meth:`SGame.one_shot_game` method.
 
-The ``payoff_matrix`` should be array-like with
-dimensions :math:`N \times A_1 \times \dots \times A_N`,
-where :math:`N` denotes the number of players
-and :math:`A_n` denotes the number of actions of player :math:`n=1,...,N`.
-
 To solve a specified :py:class:`SGame`, choose one of the
 implemented :doc:`homotopies` and apply the :py:meth:`.solve` method.
 
@@ -31,8 +26,17 @@ Simple example: |wiki_link|.
 
    <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a>
 
-| Two players, each with two actions: *cooperate* and *defect*.
-| Both defecting is the unique equilibrium.
+.. table::
+
+   +---------------+---------------+------------+
+   |               | **cooperate** | **defect** |
+   +---------------+---------------+------------+
+   | **cooperate** | -1, -1        | -3, 0      |
+   +---------------+---------------+------------+
+   | **defect**    |  0, -3        | -2, -2     |
+   +---------------+---------------+------------+
+
+Both players defecting is the unique equilibrium.
 
 .. code-block:: python
 
@@ -45,6 +49,9 @@ Simple example: |wiki_link|.
                               [ 0, -2]],
                              [[-1,  0],
                               [-3, -2]]])
+
+   # payoff_matrix.shape = (2,2,2)
+   # indices: [player, action_1, action_2]
 
    # define game
    game = SGame.one_shot_game(payoff_matrix=payoff_matrix)

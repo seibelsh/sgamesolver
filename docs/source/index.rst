@@ -16,7 +16,7 @@ Contents
    :caption: Tutorial
 
    installation
-   First game <first_game>
+   first_game
    defining_games
    solving_games
 

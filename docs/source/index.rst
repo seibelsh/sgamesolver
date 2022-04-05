@@ -3,7 +3,38 @@ Welcome! This is the documentation for sGameSolver.
 
 **sGameSolver** - A homotopy-based solver for stochastic games.
 
-.. Get started with the :doc:`Tutorial <installation>`.
+First Steps
+-----------
+
+To use sGameSolver, first install it into your preferred
+Python environment using pip:
+
+.. code-block:: console
+
+   (.venv) $ pip install sgamesolver
+
+To solve a random stochastic game, use
+
+.. code-block:: python
+
+   import dsgamesolver
+
+   # step 1: define game
+   game = dsgamesolver.SGame.random_game(num_states=5, num_players=3, num_actions=5, delta=0.95)
+
+   # step 2: choose homotopy (here: Quantal Response Equilibrium)
+   homotopy = dsgamesolver.homotopy.QRE(game=game)
+
+   # step 3: solve
+   homotopy.solver_setup()
+   homotopy.solve()
+
+   print(homotopy.equilibrium)
+
+Next Steps
+----------
+
+Get started with the :doc:`Tutorial <defining_games>`.
 
 Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
 
@@ -14,35 +45,44 @@ Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
    :caption: Tutorial
    :name: tutorial
 
-   installation
-..    solving_normal_form_game
-..    defining_games
-..    interacting_with_solver
+   defining_games
+   choosing_homotopy
+   solving_games
 
-.. .. toctree::
-..    :hidden:
-..    :maxdepth: 2
-..    :caption: Homotopies
-..    :name: homotopies
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Advanced Examples
+   :name: advanced_examples
 
-..    quantal_response_equilibrium
-..    logarithmic_tracing_procedure
+   qre_for_multiple_lambdas
+   log_tracing_searching_prior_space
+   starting_solver_at_equilibrium
 
-.. .. toctree::
-..    :hidden:
-..    :maxdepth: 2
-..    :caption: Advanced Topics
-..    :name: advanced_topics
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Homotopies
+   :name: homotopies
 
-..    cython
-..    symmetries
+   quantal_response_equilibrium
+   logarithmic_tracing_procedure
 
-.. .. toctree::
-..    :hidden:
-..    :maxdepth: 2
-..    :caption: Advanced Examples
-..    :name: advanced_examples
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Solver
+   :name: solver
 
-..    qre_for_multiple_lambdas
-..    log_tracing_searching_prior_space
-..    starting_solver_at_equilibrium
+   how_solver_works
+   parameters
+   troubleshooting
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Advanced Topics
+   :name: advanced_topics
+
+   cython
+   symmetries

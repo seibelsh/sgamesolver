@@ -1,0 +1,4 @@
+Choosing a homotopy
+===================
+
+TBC

@@ -3,11 +3,8 @@ Welcome! This is the documentation for sGameSolver.
 
 **sGameSolver** - A homotopy-based solver for stochastic games.
 
-First Steps
------------
-
 Installation
-~~~~~~~~~~~~
+------------
 
 To use sGameSolver, first install it into your preferred
 Python environment using pip:
@@ -16,8 +13,8 @@ Python environment using pip:
 
    (.venv) $ pip install sgamesolver
 
-Solving random game
-~~~~~~~~~~~~~~~~~~~
+Solving a random game
+---------------------
 
 To solve a random stochastic game, use
 

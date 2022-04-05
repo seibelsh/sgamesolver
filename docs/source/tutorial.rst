@@ -1,8 +1,9 @@
+========
 Tutorial
 ========
 
 Installation
-------------
+============
 
 To use sGameSolver, first install it into your preferred
 Python environment using pip:
@@ -12,7 +13,7 @@ Python environment using pip:
    (.venv) $ pip install sgamesolver
 
 Solving a 2x2 normal-form game
-------------------------------
+==============================
 
 To define a one-shot game, use the
 :py:meth:`SGame.one_shot_game` method.

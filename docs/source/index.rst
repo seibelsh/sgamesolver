@@ -8,13 +8,13 @@ Welcome! This is the documentation for sGameSolver.
 Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
 
 
-.. .. toctree::
-..    :hidden:
-..    :maxdepth: 2
-..    :caption: Tutorial
-..    :name: tutorial
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Tutorial
+   :name: tutorial
 
-..    installation
+   installation
 ..    solving_normal_form_game
 ..    defining_games
 ..    interacting_with_solver

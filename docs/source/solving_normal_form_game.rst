@@ -5,11 +5,12 @@ To define a one-shot game, use the
 :py:meth:`SGame.one_shot_game` method.
 
 To solve a specified :py:class:`SGame`, choose one of the
-implemented :doc:`homotopies` and apply the :py:meth:`.solve` method.
+implemented :doc:`Homotopies </quantal_response_equilibrium>`
+and apply the :py:meth:`.solve` method.
 
-Simple example: |wiki_link|.
+Simple example: |prisoners_dilemma_wiki|.
 
-.. |wiki_link| raw:: html
+.. |prisoners_dilemma_wiki| raw:: html
 
    <a href="https://en.wikipedia.org/wiki/Prisoner%27s_dilemma" target="_blank">Prisoner's Dilemma</a>
 
@@ -18,9 +19,9 @@ Simple example: |wiki_link|.
    +---------------+---------------+------------+
    |               | **cooperate** | **defect** |
    +---------------+---------------+------------+
-   | **cooperate** | -1, -1        | -3, 0      |
+   | **cooperate** | 2, 2          | 0, 3       |
    +---------------+---------------+------------+
-   | **defect**    |  0, -3        | -2, -2     |
+   | **defect**    | 3, 0          | 1, 1       |
    +---------------+---------------+------------+
 
 Both players defecting is the unique equilibrium.
@@ -28,23 +29,22 @@ Both players defecting is the unique equilibrium.
 .. code-block:: python
 
    import numpy as np
-   from sgamesolver import SGame
-   from sgamesolver.homotopy import QRE
+   import sgamesolver
 
    # prisoner's dilemma
-   payoff_matrix = np.array([[[-1, -3],
-                              [ 0, -2]],
-                             [[-1,  0],
-                              [-3, -2]]])
+   payoff_matrix = np.array([[[2, 0],
+                              [3, 1]],
+                             [[2, 3],
+                              [0, 1]]])
 
    # payoff_matrix.shape = (2,2,2)
    # indices: [player, action_1, action_2]
 
    # define game
-   game = SGame.one_shot_game(payoff_matrix=payoff_matrix)
+   game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
 
    # choose homotopy: quantal response equilibrium
-   homotopy = QRE(game=game)
+   homotopy = sgamesolver.QRE(game=game)
 
    # solve
    homotopy.solver_setup()
@@ -57,8 +57,8 @@ Output:
 .. code-block:: console
 
    >>> +++++++ state0 +++++++
-   >>> player0: v=-2.00, s=[0.000 1.000]
-   >>> player1: v=-2.00, s=[0.000 1.000]
+   >>> player0: v=1.00, s=[0.000 1.000]
+   >>> player1: v=1.00, s=[0.000 1.000]
 
 | Both players play the second action *defect* with probability one.
-| Expected payoffs are -2.
+| Expected payoffs are 1.

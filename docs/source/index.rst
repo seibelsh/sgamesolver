@@ -8,37 +8,39 @@ Get started with the :doc:`Tutorial <installation>`.
 Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
 
 
-Contents
---------
-
 .. toctree::
    :hidden:
    :maxdepth: 2
    :caption: Tutorial
+   :name: tutorial
 
    installation
-   first_game
+   solving_normal_form_game
    defining_games
-   solving_games
+   interacting_with_solver
 
 .. toctree::
    :hidden:
    :maxdepth: 2
    :caption: Homotopies
+   :name: homotopies
 
-   homotopies
-   solver
-
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Advanced Examples
-
-   advanced_examples
+   quantal_response_equilibrium
+   logarithmic_tracing_procedure
 
 .. toctree::
    :hidden:
    :maxdepth: 2
    :caption: Advanced Topics
 
-   advanced_topics
+   cython
+   symmetries
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Advanced Examples
+
+   qre_for_multiple_lambdas
+   log_tracing_searching_prior_space
+   starting_solver_at_equilibrium

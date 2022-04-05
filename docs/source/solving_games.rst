@@ -1,4 +1,0 @@
-Solving games
-=============
-
-TBC

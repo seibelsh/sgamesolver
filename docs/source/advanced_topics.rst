@@ -1,8 +1,0 @@
-Advanced topics
-===============
-
-Cython
-------
-
-Symmetries
-----------

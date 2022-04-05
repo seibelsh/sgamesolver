@@ -12,6 +12,7 @@ Contents
 --------
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
    :caption: Tutorial
 
@@ -21,6 +22,7 @@ Contents
    solving_games
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
    :caption: Homotopies
 
@@ -28,12 +30,14 @@ Contents
    solver
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
    :caption: Advanced Examples
 
    advanced_examples
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
    :caption: Advanced Topics
 

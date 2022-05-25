@@ -25,7 +25,8 @@ and :math:`A_n` denotes the number of actions of player :math:`n=0,...,N-1`.
 The list ``transition_matrices`` contains one transition matrix for each state.
 Each transition matrix should be array-like with
 dimensions :math:`A_0 \times \dots \times A_{N-1} \times S`,
-where :math:`S` denotes the number of states.
+where the last dimension indexes the destination state and
+:math:`S` denotes the number of states.
 
 The argument ``discount_factors`` can either be common discount factor
 :math:`\delta \in [0,1)` or array-like with dimension :math:`N`

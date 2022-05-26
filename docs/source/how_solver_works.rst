@@ -3,7 +3,7 @@ How the solver works
 
 For any stochastic games, the necessary and sufficient conditions
 for stationary equilibrium can be expressed as a
-(high-dimensional and nonlinear) system of equations.
+(potentially high-dimensional and nonlinear) system of equations.
 sGameSolver relies on a solution method called
 :ref:`homotopy continuation <Homotopy continuation>` for such systems.
 Numerically, homotopy continuation is performed by a
@@ -43,8 +43,8 @@ Mathematical formulation
 
 More concretely, suppose one wants to find a solution
 :math:`\boldsymbol{x}^{*}` to :math:`F(\boldsymbol{x}) = \boldsymbol{0}`,
-where :math:`F: \mathbb{R}^n \rightarrow \mathbb{R}^n` is a
-(potentially high-dimensional and nonlinear) mapping.
+where :math:`F: \mathbb{R}^n \rightarrow \mathbb{R}^n` is
+a vector-valued mapping.
 One constructs a function :math:`G: \mathbb{R}^n \rightarrow \mathbb{R}^n`
 of the same dimensionality such that a solution
 :math:`\boldsymbol{x}_0 \in G^{-1}(\boldsymbol{0})` is known

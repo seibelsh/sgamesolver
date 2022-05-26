@@ -59,6 +59,7 @@
 	\draw[very thick] plot [smooth, tension=1] coordinates {(0,5) (2,6) (3,9)};
 	\filldraw[very thick] plot (2.5,4.2) circle[radius=0.5];
 \end{tikzpicture}
+% shapes of path: tracing feasible
 \begin{tikzpicture}[scale=0.4]
 	%% axis
 	\draw[thick,->] (-1,0) -- (10,0) node[right] {$t$};
@@ -127,7 +128,7 @@
 	\draw[very thick,decoration=triangles,postaction={draw,decorate}] plot [smooth, tension=1] coordinates {(4,5) (3,6.5) (2,9)};
 	\draw[very thick,decoration=triangles,postaction={draw,decorate}] plot [smooth, tension=1] coordinates {(4,5) (6,3) (9,1)};
 	\node[right] at (0.5,0) {$H(\boldsymbol{y})=\boldsymbol{0}$};
-	\draw[->] (9,3) node[right] {$det\begin{pmatrix}J(\boldsymbol{y})\\t(\boldsymbol{y})\end{pmatrix}=\boldsymbol{0}$} to[out=180,in=0] +(-4.8,+2);
+	%\draw[->] (9,3) node[right] {$det\begin{pmatrix}J(\boldsymbol{y})\\t(\boldsymbol{y})\end{pmatrix}=\boldsymbol{0}$} to[out=180,in=0] +(-4.8,+2);
 	%% define points
 	\node (yi) at (2.2,3.3) [p1, label={[below right,xshift=2pt,yshift=-2pt] $\boldsymbol{y}_k$}] {};
 	\node (yi0) at (6,8) [p2, label={[right,xshift=3pt,yshift=-3pt] $\boldsymbol{y}_k^0$}] {};

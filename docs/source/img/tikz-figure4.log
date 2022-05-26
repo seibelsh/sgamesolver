@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.5.13)  25 MAY 2022 08:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.5.13)  26 MAY 2022 23:59
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -401,9 +401,9 @@ isable this.
 \openout4 = `tikz-figure4.dpth'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 129.
+(Font)              <7> on input line 130.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 129.
+(Font)              <5> on input line 130.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
@@ -411,19 +411,19 @@ A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to d
 isable this.
  ) 
 Here is how much of TeX's memory you used:
- 14343 strings out of 478238
- 312930 string characters out of 5850456
- 557311 words of memory out of 5000000
- 32330 multiletter control sequences out of 15000+600000
+ 14331 strings out of 478238
+ 312696 string characters out of 5850456
+ 556311 words of memory out of 5000000
+ 32318 multiletter control sequences out of 15000+600000
  472317 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,15n,107p,628b,990s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 104i,8n,107p,628b,990s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-Output written on tikz-figure4.pdf (1 page, 53648 bytes).
+Output written on tikz-figure4.pdf (1 page, 52582 bytes).
 PDF statistics:
  41 PDF objects out of 1000 (max. 8388607)
  25 compressed objects within 1 object stream

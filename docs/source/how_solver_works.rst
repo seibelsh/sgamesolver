@@ -88,12 +88,15 @@ Parameterization
 
 The homotopy path might have turning points in the sense that the
 homotopy parameter :math:`t` is not monotonically increasing along the path,
-as illustrated in the following picture.
+as illustrated in :numref:`turnings`.
 
-.. image:: img/tikz-figure0.svg
+.. _turnings:
+.. figure:: img/tikz-figure0.svg
     :width: 600
     :alt: turning points along homotopy path
     :align: center
+
+    Turning points along the homotopy path.
 
 Therefore, it is generally not possible to follow the path by
 naively increasing :math:`t`.
@@ -121,18 +124,23 @@ smooth branch :math:`\mathcal{H}^0`
 through :math:`(\boldsymbol{x}_0, 0)`
 that is almost everywhere one-dimensional,
 with only isolated transversals of auxiliary path segments.
-A corresponding illustration is provided below.
-The left picture shows a situation in which safe path traversal is
-*not* possible while the right picture shows a situation in which
-homotopy continuation is feasible.
+A corresponding illustration is provided in :numref:`infeasible`
+and :numref:`feasible`.
 
-.. image:: img/tikz-figure1.svg
+.. _infeasible:
+.. figure:: img/tikz-figure1.svg
     :width: 300
     :alt: tracing infeasible
+    :align: left
 
-.. image:: img/tikz-figure2.svg
-    :width: 300
+    Path tracing infeasible.
+
+.. _feasible:
+.. figure:: img/tikz-figure2.svg
+    :width: 320
     :alt: tracing feasible
+
+    Path tracing feasible.
 
 All homotopies implemented in sGameSolver are guaranteed to feature a
 well-defined principal branch for every possible game.
@@ -153,12 +161,15 @@ by a number of Newton corrector steps.
 Corrector steps are performed orthogonally to current tangents
 until a new point :math:`\boldsymbol{y}_{k+1}` on the path is reached.
 Then, the step size is adapted and the two-step procedure is repeated,
-as illustrated below.
+as illustrated in :numref:`predictorcorrector`.
 
-.. image:: img/tikz-figure3.svg
+.. _predictorcorrector:
+.. figure:: img/tikz-figure3.svg
     :width: 600
     :alt: predictor-corrector procedure
     :align: center
+
+    Predictor-corrector procedure.
 
 Direction
 """""""""
@@ -174,12 +185,15 @@ Bifurcation detection
 """""""""""""""""""""
 
 The principal branch of the homotopy path might be crossed
-by another branch at some point, as illustrated below.
+by another branch at some point, as illustrated in :numref:`bifurcation`.
 
-.. image:: img/tikz-figure4.svg
+.. _bifurcation:
+.. figure:: img/tikz-figure4.svg
     :width: 600
     :alt: simple bifurcation
     :align: center
+
+    A simple bifurcation.
 
 These so-called simple bifurcations are singular points of the Jacobian matrix
 at which the direction of the path may be reversed
@@ -273,12 +287,15 @@ Specifically, the correction is also considered unsuccessful if
 
 for given maximum change :math:`\bar{\Delta}_J > 0`.
 This robustness requirement prevents accidental "path jumping"
-to a different nearby segment, as illustrated below.
+to a different nearby segment, as illustrated in :numref:`jumping`.
 
-.. image:: img/tikz-figure5.svg
+.. _jumping:
+.. figure:: img/tikz-figure5.svg
     :width: 600
     :alt: path jumping
     :align: center
+
+    Path jumping during correction.
 
 When converging to a different path, the Jacobian typically changes so much
 that the correction is not accepted.

@@ -93,6 +93,7 @@ as illustrated in the following picture.
 .. image:: img/tikz-figure0.svg
     :width: 600
     :alt: turning points along homotopy path
+    :align: center
 
 Therefore, it is generally not possible to follow the path by
 naively increasing :math:`t`.
@@ -129,7 +130,6 @@ homotopy continuation is feasible.
     :width: 300
     :alt: tracing infeasible
 
-
 .. image:: img/tikz-figure2.svg
     :width: 300
     :alt: tracing feasible
@@ -158,6 +158,7 @@ as illustrated below.
 .. image:: img/tikz-figure3.svg
     :width: 600
     :alt: predictor-corrector procedure
+    :align: center
 
 Direction
 """""""""
@@ -178,6 +179,7 @@ by another branch at some point, as illustrated below.
 .. image:: img/tikz-figure4.svg
     :width: 600
     :alt: simple bifurcation
+    :align: center
 
 These so-called simple bifurcations are singular points of the Jacobian matrix
 at which the direction of the path may be reversed
@@ -276,6 +278,7 @@ to a different nearby segment, as illustrated below.
 .. image:: img/tikz-figure5.svg
     :width: 600
     :alt: path jumping
+    :align: center
 
 When converging to a different path, the Jacobian typically changes so much
 that the correction is not accepted.

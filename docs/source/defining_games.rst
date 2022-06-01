@@ -452,8 +452,8 @@ The game can be implemented in sGameSolver as follows.
     common_discount_factor = 0.95
 
     game = sgamesolver.SGame(payoff_matrices=payoff_matrices,
-                            transition_matrices=transition_matrices,
-                            discount_factors=common_discount_factor)
+                             transition_matrices=transition_matrices,
+                             discount_factors=common_discount_factor)
 
 
 References

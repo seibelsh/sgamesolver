@@ -456,8 +456,8 @@ The game can be implemented in sGameSolver as follows.
                              discount_factors=common_discount_factor)
 
 
-References
-----------
+Reference
+---------
 
 Maskin, Eric, and Jean Tirole (1988):
 "A Theory of Dynamic Oligopoly, II: Price Competition, Kinked Demand Curves, and Edgeworth Cycles.",

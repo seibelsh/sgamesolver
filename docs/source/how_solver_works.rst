@@ -210,7 +210,7 @@ opposite directions, the algorithm considers a bifurcation point
 with reversal of the direction crossed.
 Specifically, the sign of :math:`\alpha` is swapped if
 
-.. math:: [p(\boldsymbol{y}_k)]^T \: p(\boldsymbol{y}_{k-1}) \;<\; \cos(\gamma_{\min})]
+.. math:: [p(\boldsymbol{y}_k)]^T \: p(\boldsymbol{y}_{k-1}) \;<\; \cos(\gamma_{\min})
 
 with tangent :math:`p(\boldsymbol{y})` and minimum angle :math:`\gamma_{\min}`
 to classify changes in direction as bifurcation.

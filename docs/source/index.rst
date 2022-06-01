@@ -20,13 +20,13 @@ To solve a random stochastic game, use
 
 .. code-block:: python
 
-   import dsgamesolver
+   import sgamesolver
 
-   # step 1: define game
-   game = dsgamesolver.SGame.random_game(num_states=5, num_players=3, num_actions=5, delta=0.95)
+   # step 1: define game (here: random game)
+   game = sgamesolver.SGame.random_game(num_states=5, num_players=3, num_actions=5, delta=0.95)
 
-   # step 2: choose homotopy (here: Quantal Response Equilibrium)
-   homotopy = dsgamesolver.homotopy.QRE(game=game)
+   # step 2: choose homotopy (here: quantal response equilibrium)
+   homotopy = sgamesolver.homotopy.QRE(game=game)
 
    # step 3: solve
    homotopy.solver_setup()
@@ -89,3 +89,15 @@ Find the project on `GitHub <https://github.com/seibelsh/sgamesolver>`_.
 
    cython
    symmetries
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: API Reference
+   :name: api_reference
+
+   sgame
+   sgame_homotopy
+   hom_cont
+   hom_path

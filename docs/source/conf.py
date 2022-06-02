@@ -17,7 +17,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.autosectionlabel',
+    # 'sphinx.ext.autosectionlabel',
 ]
 
 intersphinx_mapping = {
@@ -33,6 +33,15 @@ numfig = True
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
+
+html_theme_options = {
+    'prev_next_buttons_location': 'bottom',
+    'sticky_navigation': True,
+    'collapse_navigation': True,
+    'navigation_depth': 2,
+    'includehidden': True,
+    'titles_only': False,
+}
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

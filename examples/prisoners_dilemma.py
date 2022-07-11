@@ -1,7 +1,7 @@
 import sgamesolver
 import numpy as np
 import pandas as pd
-from ._helpers import solve_game, assert_games_equal
+from examples._helpers import solve_game, assert_games_equal
 
 
 # %% normal-form game: prisoner's dilemma

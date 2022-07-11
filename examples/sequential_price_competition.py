@@ -1,7 +1,7 @@
 import sgamesolver
 import numpy as np
 import itertools
-from ._helpers import solve_game
+from examples._helpers import solve_game
 
 
 # %% alternating moves: sequential price competition

@@ -159,4 +159,20 @@
 	\draw[->,dotted] (yi0) -- (yj);
 \end{tikzpicture}
 
+% multiple equilibria
+\begin{tikzpicture}[scale=0.4]
+	%% axis
+	\draw[thick,->] (-1,0) -- (10,0) node[right] {$t$};
+	\draw[thick,->] (0,-1) -- (0,8) node[above] {$(\boldsymbol{\sigma},\boldsymbol{V})$};
+	\draw[dashed] (9,-0.2) node[below] {$1$} -- (9,8);
+	%% define path
+	\node at (5,1.3) {$\mathcal{H}^0$};
+	\draw[very thick] plot [smooth, tension=1] coordinates {(0,2) (5,4) (4,2) (9,3)};
+	\node at (0,2) [label={[left,xshift=-2pt,yshift=-4pt] $(\boldsymbol{\sigma}_0,\boldsymbol{V}_0)$}] {};
+	\draw[very thick] plot [smooth, tension=1] coordinates {(9,7) (7,5.5) (9,4)};
+	\node at (9,3) [label={[right,xshift=2pt,yshift=-8pt] $(\boldsymbol{\sigma}_1^*,\boldsymbol{V}_1^*)$}] {};
+	\node at (9,4) [label={[right,xshift=2pt,yshift=0pt] $(\boldsymbol{\sigma}_2^*,\boldsymbol{V}_2^*)$}] {};
+	\node at (9,7) [label={[right,xshift=2pt,yshift=-2pt] $(\boldsymbol{\sigma}_3^*,\boldsymbol{V}_3^*)$}] {};
+\end{tikzpicture}
+
 \end{document} 

@@ -1,5 +1,5 @@
 import sgamesolver
-from ._helpers import solve_game
+from examples._helpers import solve_game
 
 
 game = sgamesolver.SGame.random_game(num_states=62, num_players=2, num_actions=4, seed=42)

@@ -1,9 +1,10 @@
 Example: One-shot games
 =======================
 
-A one-shot game (normal-form game) is a stochastic game with only one state
-and full discounting (:math:`\delta=0`).
-Any one-shot game is fully specified by its payoff matrix.
+A one-shot game (normal form game) is a stochastic game
+with only one state (:math:`\boldsymbol{\phi}=\boldsymbol{1}`)
+and full discounting (:math:`\boldsymbol{\delta}=\boldsymbol{0}`).
+Any one-shot game is fully specified by its payoff matrix :math:`\boldsymbol{u}`.
 
 A famous example is the Prisoner's Dilemma:
 
@@ -30,9 +31,6 @@ To define this one-shot game conveniently, use the
                               [[2, 3],
                                [0, 1]]])
 
-    # payoff_matrix.shape = (2,2,2)
-    # indices: [player, action_0, action_1]
-
     game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
 
     # optional: overwrite action labels
@@ -41,6 +39,8 @@ To define this one-shot game conveniently, use the
 The ``payoff_matrix`` should be an array of dimension *num_players + 1*,
 the first dimension indexing the player and
 the remaining dimensions indexing the strategy profile.
+Here, ``payoff_matrix`` has shape (2, 2, 2)
+with indices [player, action_0, action_1].
 
 Alternatively, the game can be imported from a game table as follows.
 

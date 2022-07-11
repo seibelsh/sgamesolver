@@ -83,19 +83,21 @@ action_labels      Label for each action of each player in each state.
 Methods
 -------
 
-======================================================================================  ==================================================
-check_equilibrium(strategy_profile)                                                     Calculate epsilon-equilibriumness.
-centroid_strategy([zeros])                                                              Generate the centroid strategy profile.
-flatten_strategies(strategies)                                                          Convert nested strategy profile to flat array.
-flatten_values(values)                                                                  Convert nested state-player values to flat array.
-from_table(table)                                                                       Define SGame from table.
-get_values(strategy_profile)                                                            Calculate state-player values for strateg profile.
-one_shot_game(payoff_matrix)                                                            Define a one-shot game.
-random_game(num_states, num_players, ...)                                               Define a random stochastic game.
-random_strategy([zeros, seed])                                                          Generate a random strategy profile.
-random_weights([low, high, zeros, seed])                                                Generate a random set of strategy weights.
-to_table()                                                                              Convert SGame to table.
-:ref:`unflatten_strategies(strategies_flat[, zeros]) <sgame_unflatten_strategies>`      Convert flat strategy profile to nested array.
-unflatten_values(values_flat)                                                           Convert flat state-player values to nested array.
-:ref:`weighted_centroid_strategy(weights[, zeros]) <sgame_weighted_centroid_strategy>`  Generate a weighted centroid strategy profile.
-======================================================================================  ==================================================
+==============================================  ==================================================
+random_game(num_states, num_players, ...)       Define a random stochastic game.
+one_shot_game(payoff_matrix)                    Define a one-shot game.
+from_table(table)                               Define SGame from table.
+to_table()                                      Convert SGame to table.
+----------------------------------------------  --------------------------------------------------
+check_equilibrium(strategy_profile)             Calculate epsilon-equilibriumness.
+get_values(strategy_profile)                    Calculate state-player values for strateg profile.
+random_strategy([zeros, seed])                  Generate a random strategy profile.
+random_weights([low, high, zeros, seed])        Generate a random set of strategy weights.
+centroid_strategy([zeros])                      Generate the centroid strategy profile.
+weighted_centroid_strategy(weights[, zeros])    Generate a weighted centroid strategy profile.
+----------------------------------------------  --------------------------------------------------
+flatten_strategies(strategies)                  Convert nested strategy profile to flat array.
+flatten_values(values)                          Convert nested state-player values to flat array.
+unflatten_strategies(strategies_flat[, zeros])  Convert flat strategy profile to nested array.
+unflatten_values(values_flat)                   Convert flat state-player values to nested array.
+==============================================  ==================================================

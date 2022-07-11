@@ -1,7 +1,4 @@
 python>=3.6
-numpy
-scipy
-cython
-# matplotlib    # optional
-# numdifftools  # optional
-# gxx_linux-64  # optional
+sgamesolver
+sphinx
+sphinx-rtd-theme

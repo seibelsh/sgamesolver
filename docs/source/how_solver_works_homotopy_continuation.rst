@@ -133,6 +133,8 @@ and :numref:`feasible`.
 
     Path tracing feasible.
 
+|
+
 All homotopies implemented in sGameSolver are guaranteed to feature a
 well-defined principal branch for every possible game.
 Tracing this path to arrive at the desired equilibrium

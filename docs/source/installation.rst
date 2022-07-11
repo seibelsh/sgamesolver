@@ -11,7 +11,7 @@ If you are using MacOS or a linux distribution, please check the
 according section under "Cython" below.
 
 Installation with anaconda
-________________________
+--------------------------
 
 While sgamesolver works fine with the official python distribution from 
 `python.org <python.org>`_,
@@ -31,7 +31,7 @@ before installing sgamesolver. Otherwise, these dependencies will be installed b
 
 
 Cython
-___________________________
+------
 
 The performance-critical routines that evaluate the homotopy function :math:`H`
 and its Jacobian :math:`J` are written in Cython. Parts of sgamesolver may 
@@ -40,7 +40,7 @@ know if that applies for your situation, and if yes, how
 to prepare your system:
 
 Windows:
-*********
+********
 - We provide wheels for python versions 3.6--3.10 via PyPI. 
   Wheels are pre-built, so usually **no steps** from your side necessary when 
   installing via pip. 
@@ -61,13 +61,13 @@ Windows:
   Once that is done, you can install sgamesolver e.g. via pip.
 
 Linux
-*******
+*****
 - As of now, no wheels yet (but we hope to provide them soon).
 - Before installing, just install the compiler gcc. 
 - STEFFEN: how to handle in case of conda?
 
 MacOS
-******
+*****
 
 - Unfortunately, we have neither experience nor an opportunity to test this setup.
 - Your best bet will be to find a guide on how to compile cython modules

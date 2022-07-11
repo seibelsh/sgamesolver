@@ -1,10 +1,8 @@
-Solver Parameters
-==========
-
-.. _solver_paramters:
+Solver parameters
+=================
 
 Setting parameters
-__________________
+------------------
 
 Solver parameters can be changed either by setting the attribute directly, 
 or by calling the method ``set_parameters`` of the solver, passing a set
@@ -51,8 +49,7 @@ the same way, or set all of them as follows:
 >>> qre.solver.set_parameters(qre.robust_parameters)
 
 General 
-_______
-
+-------
 
 verbose: int
     Determines how much information the solver displays during computation:
@@ -68,7 +65,7 @@ max_steps: int
 
 
 Convergence
-___________
+-----------
 
 The following two parameters are used to determine if a solution has been found 
 and continuation is completed successfully:
@@ -101,7 +98,7 @@ distance_function: callable, optional
 
 
 Corrector step
-______________
+--------------
 
 After each predictor step, a corrector step follows, which in turn consists of a 
 sequence of Newton iterations, which are governed by the following parameters:
@@ -135,7 +132,7 @@ bifurcation_angle_min: float
 
 
 Step size control
-_________________
+-----------------
 
 ds_initial: float
     Step size that is set when the solver is set up.

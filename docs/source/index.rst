@@ -201,6 +201,7 @@ Get started with the :doc:`Tutorial <defining_games>`.
    :hidden:
    :caption: Tutorial
 
+   installation
    defining_games
    choosing_homotopy
    solving_games
@@ -226,6 +227,7 @@ Get started with the :doc:`Tutorial <defining_games>`.
    :caption: Solver
 
    how_solver_works
+   interacting_with_the_solver
    parameters
    troubleshooting
 

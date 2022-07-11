@@ -1,4 +1,4 @@
-Interacting with the Solver
+Interacting with the solver
 ===========================
 
 This section introduces some ways to interact 
@@ -23,9 +23,8 @@ attribute ``.solver`` of your homotopy:
 >>> print(logtracing.solver)
 <sgamesolver.homcont.HomContSolver object at 0x000001FC9481FDC0>
 
-Now would be a good time to make adjustments to :ref:`solver 
-parameters <solver_parameters>` if desired. Then, it will
-ideally be sufficient to just let it run its course:
+Now would be a good time to make adjustments to :doc:`parameters` if desired.
+Then, it will ideally be sufficient to just let it run its course:
 
 >>> logtracing.solve()
 
@@ -33,7 +32,7 @@ However, there might be situations in which you'd like to interact
 with it during solution.
 
 Saving and loading the solver state
-___________________________________
+-----------------------------------
 
 The state is always updated at the end of each predictor-corrector step. 
 it essentially consists of 
@@ -67,6 +66,6 @@ Note that the created file is human readable and can be opened with any editor.
 It contains a description field for comments or things to remember.
 
 Storing the path
-_________________
+----------------
 
 

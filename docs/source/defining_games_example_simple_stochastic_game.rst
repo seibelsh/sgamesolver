@@ -1,5 +1,5 @@
-Example: Stochastic game
-========================
+Example: Simple stochastic game
+===============================
 
 Consider the following dynamic variation of Rock Paper Scissors.
 Two players play Rock Paper Scissors repeatedly and incorporate "scissor loading".
@@ -81,13 +81,13 @@ and discount factors to :py:class:`SGame`.
     game.action_labels = ['rock', 'paper', 'scissors']
 
 The list ``payoff_matrices`` contains one payoff matrix for each state.
-Each payoff matrix is a numpy array with dimensions
+Each payoff matrix is a NumPy array with dimensions
 :math:`I \times A_0 \times \dots \times A_{I}`,
 where the first dimension indexes the player and
 :math:`A_i` denotes the number of actions of player :math:`i`.
 
 The list ``transition_matrices`` contains one transition matrix for each state.
-Each transition matrix is a numpy array with dimensions
+Each transition matrix is a NumPy array with dimensions
 :math:`A_0 \times \dots \times A_2 \times S`,
 where the last dimension indexes the destination state.
 
@@ -133,14 +133,17 @@ adv_p1   scissors   paper      1          -1         0            1           0
 adv_p1   scissors   scissors   -1         1          1            0           0
 =======  =========  =========  =========  =========  ===========  ==========  ==========
 
+The game table specifies for each state and action profile
+the corresponding payoffs and state transitions.
+Additionally, the first row specifies the discount factors for each player.
 Here, the players have been named *p0* and *p1*,
 states are named *neutral*, *adv_p0* and *adv_p1*,
 and actions are labeled *rock*, *paper* and *scissors*.
 
 To import the game table, use the :py:meth:`SGame.from_table` method.
+It accepts xlsx, xls, csv, txt, and dta files.
 
 .. code-block:: python
 
     import sgamesolver
-
     game = sgamesolver.SGame.from_table('path/to/table.xlsx')

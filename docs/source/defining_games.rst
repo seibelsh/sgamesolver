@@ -2,7 +2,7 @@ Defining games
 ==============
 
 In sGameSolver, stochastic games can be defined using the
-:ref:`SGame <sgame>` class.
+:py:class:`sgamesolver.SGame` class.
 
 Defining a stochastic game requires three inputs:
 
@@ -16,7 +16,7 @@ These can either be submitted as arrays or as Excel-like tables.
     :hidden:
 
     defining_games_definition_stochastic_game
-    defining_games_example_stochastic_game
-    defining_games_example_random_games
+    defining_games_example_simple_stochastic_game
+    defining_games_example_random_stochastic_games
     defining_games_example_one_shot_games
     defining_games_example_sequential_moves

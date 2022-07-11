@@ -8,8 +8,9 @@ with sequential moves.
 In such games, only one of the players can move in any given state,
 while the remaining players have only one action, namely do nothing.
 
-A famous example of a stochastic game with sequential moves is the
-price competition game by Maskin and Tirole (1988).
+A famous example of a stochastic game with sequential moves is
+the price competition game by
+`Maskin and Tirole (1988) <https://www.jstor.org/stable/1911701>`_.
 
 There are two firms,
 each producing a homogeneous product at zero marginal cost.

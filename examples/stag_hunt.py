@@ -1,6 +1,7 @@
 import sgamesolver
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import scipy.optimize
 from examples._helpers import solve_game, assert_games_equal
 
@@ -84,6 +85,33 @@ print(homotopy.equilibrium)
 #                       stag  hare
 # player0 : v=10.00, σ=[1.000 0.000]
 # player1 : v=10.00, σ=[1.000 0.000]
+
+
+# %% qre for multiple lambdas
+
+
+homotopy = sgamesolver.homotopy.QRE(game)
+homotopy.solver_setup()
+homotopy.solver.verbose = 0  # make silent
+
+lambdas = np.arange(0.1, 2.1, 0.1)
+
+# for player_0 only (strategies of player_1 identical due to symmetry)
+strategies = np.zeros(shape=(len(lambdas), 2), dtype=np.float64)
+
+for idx, lambda_ in enumerate(lambdas):
+    homotopy.solver.t_target = lambda_
+    homotopy.solve()
+    strategies[idx] = homotopy.equilibrium.strategies[0, 0]  # state_0, player_0
+
+plt.plot(lambdas, strategies[:, 0], label='stag')
+plt.plot(lambdas, strategies[:, 1], label='hare')
+plt.xlabel(r'$\lambda$')
+plt.ylabel('strategy')
+plt.legend()
+# plt.show()
+
+plt.savefig("docs/source/img/stag_hunt_qre_lambdas.svg", bbox_inches='tight')
 
 
 # %% TODO: check solver

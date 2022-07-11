@@ -65,7 +65,7 @@ Linux
 - As of now, no wheels yet (but we hope to provide them soon).
 - Before installing, just install the compiler gcc. 
 - When using Anaconda, Miniconda, or some other derivative, you will have to
-  additionally install the package :py:mode:`gxx_linux-64`.
+  additionally install the package :py:mod:`gxx_linux-64`.
   Otherwise, the installation steps are the same as under Windows.
 
   .. code-block:: console

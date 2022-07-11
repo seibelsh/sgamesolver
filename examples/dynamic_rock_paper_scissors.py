@@ -1,7 +1,7 @@
 import sgamesolver
 import numpy as np
 import pandas as pd
-from ._helpers import solve_game, assert_games_equal
+from examples._helpers import solve_game, assert_games_equal
 
 
 # %% stochastic game: dynamic rock-paper-scissors
@@ -145,10 +145,10 @@ fig.savefig("docs/source/img/rps_path_t.svg")
 rho = np.array([  # state0
                 [[1, 0, 0],    # player0
                  [1, 0, 0]],   # player1
-                  # state1
+                # state1
                 [[1, 0, 0],    # player0
                  [1, 0, 0]],   # player1
-                  # state2
+                # state2
                 [[1, 0, 0],    # player0
                  [1, 0, 0]]])  # player1
 homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
@@ -161,10 +161,10 @@ homotopy.plot_path()
 nu = np.array([  # state0
                [[1, 2, 3],    # player0
                 [1, 2, 3]],   # player1
-                 # state1
+               # state1
                [[1, 2, 3],    # player0
                 [1, 2, 3]],   # player1
-                 # state2
+               # state2
                [[1, 2, 3],    # player0
                 [1, 2, 3]]])  # player1
 homotopy = sgamesolver.homotopy.LogTracing(game, nu=nu, eta=0.5)

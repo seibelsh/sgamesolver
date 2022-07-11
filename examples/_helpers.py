@@ -12,6 +12,6 @@ def solve_game(game: sgamesolver.SGame, printout: bool = False) -> None:
 
 
 def assert_games_equal(game1: sgamesolver.SGame, game2: sgamesolver.SGame) -> None:
-    assert np.allclose(game1.payoffs, game2.payoffs)
+    assert np.allclose(game1.u, game2.u)
     assert np.allclose(game1.phi, game2.phi)
-    assert np.allclose(game1.discount_factors, game2.discount_factors)
+    assert np.allclose(game1.delta, game2.delta)

@@ -20,4 +20,3 @@ which are likely to be missed.
     :titlesonly:
 
     log_tracing_searching_prior_space_stag_hunt
-    .. log_tracing_searching_prior_space_sequential_price_competition

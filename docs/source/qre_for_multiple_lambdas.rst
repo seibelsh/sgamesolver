@@ -3,12 +3,13 @@ Computing QRE for multiple lambdas
 
 When it comes to the QRE homotopy,
 one might not only be interested in the limiting stationary equilibrium,
-but also in quantal response equilibria for intermediate values of :math:`\lambda`.
+but also in quantal response equilibria
+for intermediate values of :math:`\lambda`.
 Therefore, sGameSolver can perform path following not only until convergence,
 but also to specific target values of the homotopy parameter.
 
-Example: Quantal response equilibria for the stag hunt game
------------------------------------------------------------
+Example: Quantal response equilibria in the stag hunt game
+----------------------------------------------------------
 
 Consider the following version of the stag hunt game.
 
@@ -46,7 +47,7 @@ Since the game and thus all quantal response equilibria are symmetric,
 we only need to keep track of the strategies of player 0.
 
 .. code-block:: python
-    
+
     lambdas = np.arange(0.1, 2.1, 0.1)
     strategies = np.zeros(shape=(len(lambdas), 2), dtype=np.float64)
 
@@ -61,7 +62,8 @@ and save them in our strategies container.
         homotopy.solve()
         strategies[idx] = homotopy.equilibrium.strategies[0, 0]  # state_0, player_0
 
-Finally, we can use the quantal response equilibria for further analysis or for plotting.
+Finally, we can use the quantal response equilibria
+for further analysis or for plotting.
 
 .. code-block:: python
 

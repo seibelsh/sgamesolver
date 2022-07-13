@@ -18,9 +18,11 @@ This typical situation is depicted in :numref:`connected_equilibria`.
     Three equilibria: Equilibrium 1 is connected to the starting point,
     and equilibria 2 and 3 are connected to each other.
 
-By default, sGameSolver traces out the equilibrium connected to the starting point.
-If some other equilibrium is known, however, the solver can also start at this equilibrium
-and follow the auxiliary path to the connected equilibrium. 
+By default, sGameSolver traces out the equilibrium
+connected to the starting point.
+If some other equilibrium is known, however,
+the solver can also start at this equilibrium
+and follow the auxiliary path to the connected equilibrium.
 
 Example: Stag hunt
 ------------------
@@ -46,7 +48,8 @@ This game has three equilibria, all symmetric:
    in which both players play stag with probability :math:`\frac{2}{3}`
    and hare with probability :math:`\frac{1}{3}`.
 
-The game can be implemented and solved with the logarithmic tracing homotopy as follows.
+The game can be implemented and solved
+with the logarithmic tracing homotopy as follows.
 
 .. code-block:: python
 

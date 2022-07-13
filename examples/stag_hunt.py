@@ -1,8 +1,15 @@
+"""Stag hunt examples on how to use sGameSolver."""
+
+
+import datetime
+import sys
+
 import sgamesolver
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.optimize
+
 from examples._helpers import solve_game, assert_games_equal
 
 
@@ -38,6 +45,33 @@ game2 = sgamesolver.SGame.from_table(game_table)
 assert_games_equal(game, game2)
 
 
+# %% qre for multiple lambdas
+
+
+homotopy = sgamesolver.homotopy.QRE(game)
+homotopy.solver_setup()
+homotopy.solver.verbose = 0  # make silent
+
+lambdas = np.arange(0.1, 2.1, 0.1)
+
+# for player_0 only (strategies of player_1 identical due to symmetry)
+strategies = np.zeros(shape=(len(lambdas), 2), dtype=np.float64)
+
+for idx, lambda_ in enumerate(lambdas):
+    homotopy.solver.t_target = lambda_
+    homotopy.solve()
+    strategies[idx] = homotopy.equilibrium.strategies[0, 0]  # state_0, player_0
+
+plt.plot(lambdas, strategies[:, 0], label='stag')
+plt.plot(lambdas, strategies[:, 1], label='hare')
+plt.xlabel(r'$\lambda$')
+plt.ylabel('strategy')
+plt.legend()
+# plt.show()
+
+plt.savefig("docs/source/img/stag_hunt_qre_lambdas.svg", bbox_inches='tight')
+
+
 # %% start at equilibrium
 
 homotopy = sgamesolver.homotopy.LogTracing(game)
@@ -54,7 +88,7 @@ print(homotopy.equilibrium)
 # mixed equilibrium
 
 def f(q):
-      return np.dot(payoff_matrix[0][0], np.array([q, 1-q])) - np.dot(payoff_matrix[0][1], np.array([q, 1-q]))
+    return np.dot(payoff_matrix[0][0], np.array([q, 1-q])) - np.dot(payoff_matrix[0][1], np.array([q, 1-q]))
 
 
 q = scipy.optimize.brentq(f, 1e-9, 1 - 1e-9)
@@ -87,31 +121,60 @@ print(homotopy.equilibrium)
 # player1 : v=10.00, σ=[1.000 0.000]
 
 
-# %% qre for multiple lambdas
+# %% log tracing: searching prior space
 
 
-homotopy = sgamesolver.homotopy.QRE(game)
-homotopy.solver_setup()
-homotopy.solver.verbose = 0  # make silent
+payoff_matrix = np.array([[[10, 1],
+                           [8, 5]],
+                          [[10, 8],
+                           [1, 5]]])
+game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
 
-lambdas = np.arange(0.1, 2.1, 0.1)
+runs = 100
+strategies = np.zeros(shape=(runs, 4), dtype=np.float64)
 
-# for player_0 only (strategies of player_1 identical due to symmetry)
-strategies = np.zeros(shape=(len(lambdas), 2), dtype=np.float64)
-
-for idx, lambda_ in enumerate(lambdas):
-    homotopy.solver.t_target = lambda_
+for run in range(runs):
+    # homotopy = sgamesolver.homotopy.LogTracing(game, rho='random')
+    rho = homotopy.game.random_strategy(seed=run)
+    homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
+    homotopy.solver_setup()
+    homotopy.solver.verbose = 0  # make silent
     homotopy.solve()
-    strategies[idx] = homotopy.equilibrium.strategies[0, 0]  # state_0, player_0
+    strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 
 
-plt.plot(lambdas, strategies[:, 0], label='stag')
-plt.plot(lambdas, strategies[:, 1], label='hare')
-plt.xlabel(r'$\lambda$')
-plt.ylabel('strategy')
-plt.legend()
+print(np.unique(strategies, axis=0))
+
+
+def get_eq(strat: np.ndarray) -> str:
+    if np.allclose(strat, np.array([0, 1, 0, 1])):
+        return 'hare'
+    elif np.allclose(strat, np.array([1, 0, 1, 0])):
+        return 'stag'
+    elif np.allclose(np.array([2/3, 1/3, 2/3, 1/3])):
+        return 'mixed'
+    else:
+        raise ValueError('unknown equilibrium')
+
+
+equilibria = np.array([get_eq(strat) for strat in strategies])
+eq_vals, counts = np.unique(equilibria, return_counts=True)
+pcts = 100 * counts / counts.sum()
+
+plt.bar(eq_vals, pcts)
+plt.xticks([0, 1, 2], ['(hare, hare)', '(stag, stag)', 'mixed'])
+plt.xlim(-0.6, 2.6)
+plt.ylabel('%')
+plt.ylim(0, 100)
 # plt.show()
 
-plt.savefig("docs/source/img/stag_hunt_qre_lambdas.svg", bbox_inches='tight')
+plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors.svg", bbox_inches='tight')
+
+
+# priors = np.linspace
+
+# toc = datetime.datetime.now()
+# sys.stdout.write(f"done run {run + 1} / {runs}. time elapsed = {str(toc-tic).split('.')[0]}\r")
+# sys.stdout.flush()
 
 
 # %% TODO: check solver
@@ -121,16 +184,9 @@ payoff_matrix = np.array([[[3, 0],
                            [2, 1]],
                           [[3, 2],
                            [0, 1]]])
-
-# payoff_matrix.shape = (2,2,2)
-# indices: [player, action_0, action_1]
-
 game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-
-# optional: overwrite action labels
-game.action_labels = ['stag', 'hare']
 
 homotopy = sgamesolver.homotopy.LogTracing(game)
 homotopy.solver_setup()
-homotopy.solver.set_parameters(homotopy.robust_parameters)
+# homotopy.solver.set_parameters(homotopy.robust_parameters)
 homotopy.solve()

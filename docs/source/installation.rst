@@ -16,7 +16,7 @@ Installation with Anaconda
 While sGameSolver works fine with the official Python distribution from `python.org`,
 we strongly recommend using `Anaconda <https://www.anaconda.com/>`_ for numerical computations
 - the speedup provided by Anaconda was sizeable on our systems when using sGameSolver.
-If you *do* use anaconda, make sure to install
+If you *do* use Anaconda, make sure to install
 :py:mod:`numpy`, :py:mod:`scipy`, :py:mod:`pandas`, :py:mod:`matplotlib` and :py:mod:`cython`
 before installing sGameSolver.
 Otherwise, these dependencies will be installed by pip

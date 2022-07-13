@@ -170,6 +170,8 @@ plt.ylim(0, 100)
 plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors.svg", bbox_inches='tight')
 
 
+# systematic search
+
 # priors = np.linspace
 
 # toc = datetime.datetime.now()

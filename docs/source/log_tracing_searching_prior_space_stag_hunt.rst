@@ -131,3 +131,9 @@ The resulting plot is shown in :numref:`stag_hunt_prior_search`.
     :align: center
 
     Histogram of equilibria in the stag hunt game, found by random prior search.
+
+
+Systematic search
+-----------------
+
+TBD

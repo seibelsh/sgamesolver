@@ -122,12 +122,12 @@ and illustrate the equilibrium counts in a bar plot:
     plt.ylim(0, 100)
     plt.show()
 
-The resulting plot is shown in :numref:`stag_hunt_prior_search`.
+The resulting plot is shown in :numref:`stag_hunt_prior_search_random`.
 
-.. _stag_hunt_prior_search:
-.. figure:: img/stag_hunt_logtracing_search_priors.svg
+.. _stag_hunt_prior_search_random:
+.. figure:: img/stag_hunt_logtracing_search_priors_random.svg
     :width: 600
-    :alt: stag hunt prior search
+    :alt: stag hunt random prior search
     :align: center
 
     Histogram of equilibria in the stag hunt game, found by random prior search.
@@ -136,4 +136,41 @@ The resulting plot is shown in :numref:`stag_hunt_prior_search`.
 Systematic search
 -----------------
 
-TBD
+As an alternative to random search,
+one can also work through the prior space systematically.
+For example, one can discretize the prior space
+into an evently spaced grid
+and let the solver run for every prior on the grid.
+
+For the present stag hunt game,
+priors are parameterized by two probabilities:
+the probability :math:`p` for player_0 to play stag
+and the probability :math:`q` for player_1 to play stag.
+Let's consider the grid in which each probabilities is taken from
+the set :math:`\{0, 0.1, ..., 0.9, 1\}`.
+In this case, the above code needs to be adjusted as follows.
+
+.. code-block:: python
+
+    num_probs = 11
+    probs = np.linspace(0, 1, num_probs)
+    priors = np.array([[[[p, 1-p], [q, 1-q]]] for p in probs for q in probs])
+    strategies = np.zeros(shape=(num_probs**2, 4), dtype=np.float64)
+
+    for run, prior in enumerate(priors):
+        homotopy = sgamesolver.homotopy.LogTracing(game, rho=prior)
+        homotopy.solver_setup()
+        homotopy.solver.verbose = 0  # make silent
+        homotopy.solve()
+        strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 0
+
+As expected, the result looks similar to the randomized prior search above,
+see :numref:`stag_hunt_prior_search_systematic`.
+
+.. _stag_hunt_prior_search_systematic:
+.. figure:: img/stag_hunt_logtracing_search_priors_systematic.svg
+    :width: 600
+    :alt: stag hunt systematic prior search
+    :align: center
+
+    Histogram of equilibria in the stag hunt game, found by systematic prior search.

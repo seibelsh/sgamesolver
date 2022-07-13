@@ -140,7 +140,7 @@ for run in range(runs):
     homotopy.solver_setup()
     homotopy.solver.verbose = 0  # make silent
     homotopy.solve()
-    strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 
+    strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 0
 
 print(np.unique(strategies, axis=0))
 
@@ -167,12 +167,36 @@ plt.ylabel('%')
 plt.ylim(0, 100)
 # plt.show()
 
-plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors.svg", bbox_inches='tight')
+plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors_random.svg", bbox_inches='tight')
 
 
-# systematic search
+# systematic search:
 
-# priors = np.linspace
+num_probs = 11
+probs = np.linspace(0, 1, num_probs)
+priors = np.array([[[[p, 1-p], [q, 1-q]]] for p in probs for q in probs])
+strategies = np.zeros(shape=(num_probs**2, 4), dtype=np.float64)
+
+for run, prior in enumerate(priors):
+    homotopy = sgamesolver.homotopy.LogTracing(game, rho=prior)
+    homotopy.solver_setup()
+    homotopy.solver.verbose = 0  # make silent
+    homotopy.solve()
+    strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 0
+
+equilibria = np.array([get_eq(strat) for strat in strategies])
+eq_vals, counts = np.unique(equilibria, return_counts=True)
+pcts = 100 * counts / counts.sum()
+
+plt.bar(eq_vals, pcts)
+plt.xticks([0, 1, 2], ['(hare, hare)', '(stag, stag)', 'mixed'])
+plt.xlim(-0.6, 2.6)
+plt.ylabel('%')
+plt.ylim(0, 100)
+# plt.show()
+
+plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors_systematic.svg", bbox_inches='tight')
+
 
 # toc = datetime.datetime.now()
 # sys.stdout.write(f"done run {run + 1} / {runs}. time elapsed = {str(toc-tic).split('.')[0]}\r")

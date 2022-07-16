@@ -1,13 +1,13 @@
 Stationary equilibrium
 ======================
 
-A stationary equilibrium is a Nash equilibrium
+A **stationary equilibrium** is a Nash equilibrium
 in which players may condition their actions
 only on the current state of the game,
 not on past actions.
 
 (Remark: If all states are *payoff-relevant*,
-a stationary equilibrium is often also called Markov perfect equilibrium.)
+a stationary equilibrium is often also called **Markov perfect equilibrium**.)
 
 More formally, a stationary strategy :math:`\sigma_i(s)` for player :math:`i`
 is a function :math:`\sigma_i: S \rightarrow \Delta(A_{si})`
@@ -31,4 +31,5 @@ constitutes a stationary equilibrium if and only if
 for all states :math:`s\in S` and players :math:`i\in I`.
 
 Finding a stationary equilibrium amounts to solving the above maximization
-(which is generally difficult).
+(which is generally difficult) for equilibrium strategies :math:`\boldsymbol{\sigma}`
+(and corresponding values :math:`\boldsymbol{V}`).

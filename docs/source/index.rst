@@ -2,11 +2,10 @@ sGameSolver
 ===========
 
 Stochastic Game Solver, short: **sGameSolver**,
-is a python package to compute
-stationary or Markov perfect equilibria of stochastic games,
-using the homotopy continuation method.
+is a python package to compute stationary or Markov perfect equilibria
+of stochastic games using the homotopy continuation method.
 
-Some useful links:
+Further useful links:
 
 - Source code is hosted on `GitHub <https://github.com/davidpoensgen/sgamesolver>`_.
 - Also on GitHub is an `issue tracker <https://github.com/davidpoensgen/sgamesolver/issues>`_
@@ -15,7 +14,8 @@ Some useful links:
 
 .. - Documentation is found on `ReadTheDocs <https://sgamesolver.readthedocs.io>`_.
 
-sGameSolver is free and open source, under the MIT license.
+sGameSolver is free and open source, under the
+`MIT license <https://github.com/davidpoensgen/sgamesolver/blob/main/LICENSE>`_.
 If you use the program for any published research, please cite
 `Eibelshäuser/Poensgen (2019) <https://dx.doi.org/10.2139/ssrn.3316631>`_.
 
@@ -94,7 +94,7 @@ This transformation is then gradually reversed while tracking the solution,
 until arriving at a solution for the original problem
 – here, the desired stationary equilibrium.
 (You can find more background section
-:doc:`how_solver_works_homotopy_continuation`
+:doc:`homotopy_method`
 – although such knowledge is *not* necessary for using the program.)
 
 The (mathematical) function used for this transformation
@@ -203,9 +203,10 @@ as NumPy arrays and use them for further calculations or simulations.
 Next Steps
 ----------
 
-Get started with the :doc:`Tutorial <defining_games>`.
+Get started with the :doc:`installation`
+or immediately proceed to the :doc:`Tutorial <defining_games>`.
 
-For more details on stochastic games and homotopy methods,
+For details on the underlying game-theoretic concepts,
 check out the :doc:`Theory <stochastic_games>` section.
 
 
@@ -228,17 +229,6 @@ check out the :doc:`Theory <stochastic_games>` section.
 
 .. toctree::
     :hidden:
-    :caption: Theory
-    :titlesonly:
-
-    stochastic_games
-    stationary_equilibrium
-    how_solver_works
-    quantal_response_equilibrium
-    logarithmic_tracing_procedure
-
-.. toctree::
-    :hidden:
     :caption: Solver
 
     interacting_with_the_solver
@@ -247,3 +237,14 @@ check out the :doc:`Theory <stochastic_games>` section.
 
 .. TODO: Advanced Topics (symmetries, etc...)
 .. TODO: API Reference (auto-generated)
+
+.. toctree::
+    :hidden:
+    :caption: Theory
+    :titlesonly:
+
+    stochastic_games
+    stationary_equilibrium
+    homotopy_method
+    quantal_response_equilibrium
+    logarithmic_tracing_procedure

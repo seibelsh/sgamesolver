@@ -1,7 +1,7 @@
 Stochastic games
 ================
 
-A *stochastic game* is a sequence of normal-form games.
+A **stochastic game** is a sequence of normal-form games.
 Each period, the corresponding normal-form game is characterized by a *state*.
 At the beginning of a period, players learn the current state.
 Afterwards, they interact and obtain payoffs accordingly.

@@ -1,12 +1,12 @@
-How the solver works
-====================
+Homotopy method
+===============
 
 For any stochastic games, the necessary and sufficient conditions
 for stationary equilibrium can be expressed as a
 (potentially high-dimensional and nonlinear) system of equations.
 
 sGameSolver relies on a solution method called
-:ref:`homotopy continuation <homotopy_continuation>`
+:doc:`homotopy continuation <homotopy_continuation>`
 for the system of equations characterizing equilibrium.
 
 Numerically, homotopy continuation is performed by a
@@ -15,6 +15,5 @@ Numerically, homotopy continuation is performed by a
 .. toctree::
     :hidden:
 
-    how_solver_works_homotopy_continuation
-    how_solver_works_predictor_corrector_procedure
-    how_solver_works_references
+    homotopy_continuation
+    predictor_corrector_procedure

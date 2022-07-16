@@ -12,5 +12,4 @@ Solving a stochastic game requires two steps:
 .. toctree::
     :hidden:
 
-    solving_games_definition_stationary_equilibrium
     solving_games_example_simple_path_following

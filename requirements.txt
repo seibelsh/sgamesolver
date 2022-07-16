@@ -2,3 +2,4 @@ python>=3.6
 sgamesolver
 sphinx
 sphinx-rtd-theme
+sphinx-tabs

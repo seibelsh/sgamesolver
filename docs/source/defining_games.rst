@@ -15,7 +15,6 @@ These can either be submitted as arrays or as Excel-like tables.
 .. toctree::
     :hidden:
 
-    defining_games_definition_stochastic_game
     defining_games_example_simple_stochastic_game
     defining_games_example_random_stochastic_games
     defining_games_example_one_shot_games

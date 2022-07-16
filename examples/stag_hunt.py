@@ -1,9 +1,6 @@
 """Stag hunt examples on how to use sGameSolver."""
 
 
-import datetime
-import sys
-
 import sgamesolver
 import numpy as np
 import pandas as pd

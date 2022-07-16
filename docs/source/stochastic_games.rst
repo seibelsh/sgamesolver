@@ -1,5 +1,5 @@
-Definition: Stochastic game
-===========================
+Stochastic games
+================
 
 A *stochastic game* is a sequence of normal-form games.
 Each period, the corresponding normal-form game is characterized by a *state*.

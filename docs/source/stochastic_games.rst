@@ -34,3 +34,6 @@ Defining a stochastic game requires three inputs:
 payoffs :math:`\boldsymbol{u}`, transitions :math:`\boldsymbol{\phi}`
 and discount factors :math:`\boldsymbol{\delta}`
 (their dimensions reveal states, players and actions).
+
+The standard solution concept for stochastic games is
+:doc:`stationary equilibrium <stationary_equilibrium>`.

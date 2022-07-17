@@ -31,5 +31,12 @@ constitutes a stationary equilibrium if and only if
 for all states :math:`s\in S` and players :math:`i\in I`.
 
 Finding a stationary equilibrium amounts to solving the above maximization
-(which is generally difficult) for equilibrium strategies :math:`\boldsymbol{\sigma}`
+(which is generally difficult)
+for equilibrium strategies :math:`\boldsymbol{\sigma}`
 (and corresponding values :math:`\boldsymbol{V}`).
+The corresponding the necessary and sufficient conditions
+can be expressed as a
+(potentially high-dimensional and nonlinear)
+system of equations.
+To solve it, sGameSolver relies on a solution method called
+:doc:`homotopy continuation <homotopy_continuation>`.

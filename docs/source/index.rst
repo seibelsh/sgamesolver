@@ -93,8 +93,8 @@ for which one can easily obtain a solution.
 This transformation is then gradually reversed while tracking the solution,
 until arriving at a solution for the original problem
 – here, the desired stationary equilibrium.
-(You can find more background section
-:doc:`homotopy_method`
+(You can find more background in section
+:doc:`homotopy_continuation`
 – although such knowledge is *not* necessary for using the program.)
 
 The (mathematical) function used for this transformation
@@ -232,7 +232,7 @@ check out the :doc:`Theory <stochastic_games>` section.
     :caption: Solver
 
     interacting_with_the_solver
-    parameters
+    solver_parameters
     troubleshooting
 
 .. TODO: Advanced Topics (symmetries, etc...)
@@ -245,6 +245,7 @@ check out the :doc:`Theory <stochastic_games>` section.
 
     stochastic_games
     stationary_equilibrium
-    homotopy_method
+    homotopy_continuation
+    predictor_corrector_procedure
     quantal_response_equilibrium
     logarithmic_tracing_procedure

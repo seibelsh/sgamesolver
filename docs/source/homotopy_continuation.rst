@@ -1,8 +1,6 @@
 Homotopy continuation
 =====================
 
-.. _homotopy_continuation:
-
 **Homotopy continuation** denotes a class of numerical techniques to solve
 high-dimensional nonlinear systems of equations.
 The basic idea is the following.
@@ -140,4 +138,5 @@ and :numref:`feasible`.
 All homotopies implemented in sGameSolver are guaranteed to feature a
 well-defined principal branch for every possible game.
 Tracing this path to arrive at the desired equilibrium
-is done numerically by predictor-corrector iterations.
+is done numerically by
+:doc:`predictor-corrector iterations <predictor_corrector_procedure>`.

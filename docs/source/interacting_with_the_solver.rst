@@ -1,62 +1,78 @@
 Interacting with the solver
 ===========================
 
-This section introduces some ways to interact 
-with the solver which performs the numerical path tracking.
-The basic usage is simple. First, set up a game, choose a homotopy and, if
-desired, make any last adjustments to *homotopy* parameters:
+This section introduces some ways to interact with the solver
+which performs the numerical path tracking
+via :doc:`predictor-corrector iterations <predictor_corrector_procedure>`.
 
->>> game = sgamesolver.SGame ...
->>> logtracing = sgamesolver.homotopy.LogTracing(game)
->>> logtracing.eta = 0.1
+The solver's basic usage is simple:
+First, set up a game, choose a homotopy and,
+if desired, make any last adjustments to the *homotopy* parameters:
 
-Next, set up the solver by calling ``.solver_setup``:
+.. code-block:: python
 
->>> logtracing.solver_setup()
+    import sgamesolver
+    game = sgamesolver.SGame.random_game(3, 3, 3)
+    homotopy = sgamesolver.homotopy.LogTracing(game)
+    homotopy.eta = 0.1
 
-``solver_setup`` essentially does 2 things: It computes the starting point ``y0`` 
-(which is why you should fix homotopy parameters beforehand); and
-it instantiates a solver, an object of class ``HomContSolver`` which is
-responsible for the path tracking algorithm. You can access it via the 
-attribute ``.solver`` of your homotopy:
+Next, set up the solver by calling :py:meth:`~.solver_setup`:
 
->>> print(logtracing.solver)
+.. code-block:: python
+
+    homotopy.solver_setup()
+
+:py:meth:`~.solver_setup` essentially does two things:
+It computes the starting point ``y0``
+(which is why you should fix homotopy parameters beforehand)
+and it instantiates a solver,
+an object of class :py:class:`HomContSolver`
+which is responsible for the path tracking algorithm.
+You can access it via the attribute :py:attr:`~.solver` of your homotopy:
+
+>>> print(homotopy.solver)
 <sgamesolver.homcont.HomContSolver object at 0x000001FC9481FDC0>
 
-Now would be a good time to make adjustments to :doc:`parameters` if desired.
+Now would be a good time to make adjustments to the
+:doc:`solver parameters <solver_parameters>` if desired.
 Then, it will ideally be sufficient to just let it run its course:
 
->>> logtracing.solve()
+.. code-block:: python
 
-However, there might be situations in which you'd like to interact
-with it during solution.
+    homotopy.solve()
+
+However, there might be situations in which you'd like to
+interact with the solver during the solution procedure.
 
 Saving and loading the solver state
 -----------------------------------
 
-The state is always updated at the end of each predictor-corrector step. 
-it essentially consists of 
+The state is updated at the end of each predictor-corrector step.
+It essentially consists of
 
-(a) ``y`` before the next predictor step
-(b) current step size ``ds``
-(c) some additional variables 
-    (orientation, total path length traveled, step number, consecutive successes)
+- ``y`` before the next predictor step
+- current step size ``ds``
+- some additional variables
+  (orientation, total path length traveled, step number, consecutive successes)
 
 Importantly, these quantities together completely determine future behavior:
-Returning to a previous state and re-starting the solver will reproduce the exact same results
+Returning to a previous state and re-starting the solver
+will reproduce the exact same results
 (assuming no parameter changes, of course).
 
-The solver state can be saved to a file using the method ``.save_file``:
+The solver state can be saved to a text file
+using the method :py:meth:`~.save_file`:
 
->>> homotopy.solver.save_file("example.txt")
+>>> homotopy.solver.save_file('example.txt')
 Current state saved as example.txt.
 
-You can then always return to that state later:
+You can then always return to that solver state later
+by invoking the method :py:meth:`~.load_file`:
 
->>> homotopy.solver.load_file("example.txt")
+>>> homotopy.solver.load_file('example.txt')
 State successfully loaded from example.txt.
 
-.. Warning ::
+.. warning ::
     The solver state does **not** include (i) solver parameters or (ii) the
     game and homotopy parameters. If you want to restart from the saved state later on,
     you need to ensure that these can be recreated (e.g. by keeping the
@@ -68,4 +84,4 @@ It contains a description field for comments or things to remember.
 Storing the path
 ----------------
 
-
+TBD

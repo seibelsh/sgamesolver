@@ -5,7 +5,6 @@ import sgamesolver
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import scipy.optimize
 
 from examples._helpers import solve_game, assert_games_equal
 
@@ -71,51 +70,60 @@ plt.savefig("docs/source/img/stag_hunt_qre_lambdas.svg", bbox_inches='tight')
 
 # %% start at equilibrium
 
-homotopy = sgamesolver.homotopy.LogTracing(game)
-homotopy.solver_setup()
-homotopy.solve()
 
-print(homotopy.equilibrium)
+payoff_matrix = np.array([[[10, 1],
+                           [8, 5]],
+                          [[10, 8],
+                           [1, 5]]])
+game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+game.action_labels = ['stag', 'hare']
+
+stag_prior = np.array([[[1, 0],
+                        [1, 0]]])
+homotopy_stag = sgamesolver.homotopy.LogTracing(game, rho=stag_prior)
+homotopy_stag.solver_setup()
+homotopy_stag.solve()
+print(homotopy_stag.equilibrium)
+# +++++++++ state0 +++++++++
+#                       stag  hare
+# player0 : v=10.00, σ=[1.000 0.000]
+# player1 : v=10.00, σ=[1.000 0.000]
+
+hare_prior = np.array([[[0, 1],
+                        [0, 1]]])
+homotopy_hare = sgamesolver.homotopy.LogTracing(game, rho=hare_prior)
+homotopy_hare.solver_setup()
+homotopy_hare.solve()
+print(homotopy_hare.equilibrium)
 # +++++++++ state0 +++++++++
 #                      stag  hare
 # player0 : v=5.00, σ=[0.000 1.000]
 # player1 : v=5.00, σ=[0.000 1.000]
 
+# We can find the mixed equilibrium as follows:
+# Use the homotopy path induced by the STAG prior,
+# but start at the HARE equilibrium
+# (i.e. the final point from the latter).
+homotopy_mixed = sgamesolver.homotopy.LogTracing(game, rho=stag_prior)  # stag prior
+homotopy_mixed.solver_setup()
+homotopy_mixed.solver.y = homotopy_hare.solver.y.copy()                 # hare equilibrium
+homotopy_mixed.solver.sign *= -1                                        # going "backwards"
 
-# mixed equilibrium
+# If we just start now, the solver (rightfully) thinks it is already at a solution.
+# We therefore tell it to walk away from t=1 a bit:
+homotopy_mixed.solver.t_target = 0.99
+homotopy_mixed.solve()
 
-def f(q):
-    return np.dot(payoff_matrix[0][0], np.array([q, 1-q])) - np.dot(payoff_matrix[0][1], np.array([q, 1-q]))
+# The solver now reports it has found a point with t=.99
+# We can now set the goal to t=1 again and keep going:
+homotopy_mixed.solver.t_target = 1
+homotopy_mixed.solve()
 
-
-q = scipy.optimize.brentq(f, 1e-9, 1 - 1e-9)
-assert q > 0 and q < 1
-
-strategies = np.array([[[q, 1 - q],
-                        [q, 1 - q]]])
-print(strategies)
-# array([[[0.66666667, 0.33333333],
-#         [0.66666667, 0.33333333]]])
-
-assert np.allclose(game.check_equilibrium(strategies), 0)
-
-values = game.get_values(strategies)
-print(values)
-# array([[7., 7.]])
-
-y0 = homotopy.sigma_V_t_to_y(strategies, values, 1)
-assert np.allclose(homotopy.H(y0), 0)
-
-homotopy.solver_setup()
-homotopy.solver.y = y0
-homotopy.solver.sign *= -1  # going "backwards"
-homotopy.solve()
-
-print(homotopy.equilibrium)
+print(homotopy_mixed.equilibrium)
 # +++++++++ state0 +++++++++
-#                       stag  hare
-# player0 : v=10.00, σ=[1.000 0.000]
-# player1 : v=10.00, σ=[1.000 0.000]
+#                      stag  hare
+# player0 : v=7.00, σ=[0.667 0.333]
+# player1 : v=7.00, σ=[0.667 0.333]
 
 
 # %% log tracing: searching prior space
@@ -193,11 +201,6 @@ plt.ylim(0, 100)
 # plt.show()
 
 plt.savefig("docs/source/img/stag_hunt_logtracing_search_priors_systematic.svg", bbox_inches='tight')
-
-
-# toc = datetime.datetime.now()
-# sys.stdout.write(f"done run {run + 1} / {runs}. time elapsed = {str(toc-tic).split('.')[0]}\r")
-# sys.stdout.flush()
 
 
 # %% TODO: check solver

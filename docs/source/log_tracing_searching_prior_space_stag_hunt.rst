@@ -24,17 +24,40 @@ This game has three equilibria, all symmetric:
 
 The game can be implemented as follows.
 
-.. code-block:: python
+.. tabs::
 
-    import sgamesolver
-    import numpy as np
+    .. group-tab:: Arrays
 
-    payoff_matrix = np.array([[[10, 1],
-                               [8, 5]],
-                              [[10, 8],
-                               [1, 5]]])
-    game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-    game.action_labels = ['stag', 'hare']
+        .. code-block:: python
+
+            import sgamesolver
+            import numpy as np
+
+            payoff_matrix = np.array([[[10, 1],
+                                    [8, 5]],
+                                    [[10, 8],
+                                    [1, 5]]])
+            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+            game.action_labels = ['stag', 'hare']
+
+    .. group-tab:: Table
+
+        ======  =========  =========  =========  =========  ==========
+        state   a_player0  a_player1  u_player0  u_player1  phi_state0
+        ======  =========  =========  =========  =========  ==========
+        delta                         0          0
+        state0  stag       stag       10         10         0
+        state0  stag       hare       1          8          0
+        state0  hare       stag       8          1          0
+        state0  hare       hare       5          5          0
+        ======  =========  =========  =========  =========  ==========
+
+        .. code-block:: python
+
+            import sgamesolver
+            import numpy as np
+
+            game = sgamesolver.SGame.from_table('path/to/table.xlsx')
 
 Before searching the prior space,
 we need set the number of searches
@@ -84,7 +107,7 @@ can done as follows.
 
 A quick look at the equilibrium strategies reveals that
 the solver found the two equilibria in pure strategies,
-(hare, hare) and (hare, hare).
+(hare, hare) and (stag, stag).
 
 >>> print(np.unique(strategies, axis=0))
 [[0. 1. 0. 1.]

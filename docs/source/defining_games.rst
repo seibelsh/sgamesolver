@@ -65,10 +65,6 @@ The examples in this tutorial further demonstrate how to enter specific games
             import sgamesolver
             game = sgamesolver.SGame.from_table("C:/path/to/my_game_file.csv")
 
-
-        Table format
-        ************
-
         Here is an example of a game with 2 states, 2 players and 2 actions each,
         defined in the tabular format.
 
@@ -121,9 +117,7 @@ The examples in this tutorial further demonstrate how to enter specific games
           player's discount factor in their "u\_"-column. All other
           fields should be empty.
 
-
-        Some more details
-        ******************
+        Some more details:
 
         - General remarks
 

@@ -2,7 +2,8 @@ Example: Random stochastic games
 ================================
 
 To conveniently define a random stochastic game, use the
-:py:meth`SGame.random_game` method.
+:py:meth:`SGame.random_game` method.
+
 
 1. Common discount factors and actions
 --------------------------------------
@@ -19,6 +20,7 @@ Likewise, if ``delta`` is a single number,
 it is interpreted as the common discount factor for all players.
 Finally, passing a ``seed`` makes the random game replicable.
 
+
 2. Randomized discount factors and actions
 ------------------------------------------
 
@@ -31,6 +33,7 @@ Finally, passing a ``seed`` makes the random game replicable.
 If ``num_actions`` or ``delta`` are lists/tuples of length two,
 the two entries are understood as [min, max] values and
 actions respectively discount factors are randomized from that range.
+
 
 3. Specific individual discount factors and actions
 ---------------------------------------------------

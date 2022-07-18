@@ -26,20 +26,6 @@ The game can be implemented as follows.
 
 .. tabs::
 
-    .. group-tab:: Arrays
-
-        .. code-block:: python
-
-            import sgamesolver
-            import numpy as np
-
-            payoff_matrix = np.array([[[10, 1],
-                                    [8, 5]],
-                                    [[10, 8],
-                                    [1, 5]]])
-            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-            game.action_labels = ['stag', 'hare']
-
     .. group-tab:: Table
 
         ======  =========  =========  =========  =========  ==========
@@ -59,6 +45,20 @@ The game can be implemented as follows.
 
             game = sgamesolver.SGame.from_table('path/to/table.xlsx')
 
+    .. group-tab:: Arrays
+
+        .. code-block:: python
+
+            import sgamesolver
+            import numpy as np
+
+            payoff_matrix = np.array([[[10, 1],
+                                       [8, 5]],
+                                      [[10, 8],
+                                       [1, 5]]])
+            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+            game.action_labels = ['stag', 'hare']
+
 Before searching the prior space,
 we need set the number of searches
 and initialize a container to keep track
@@ -76,6 +76,7 @@ the probability of player_1 playing stag
 and the probability of player_1 playing hare, respectively.
 Each row holds one strategy profile.
 
+
 Random search
 -------------
 
@@ -83,14 +84,18 @@ sGameSolver's logarithmic tracing homotopy class
 :py:class:`sgamesolver.homotopy.LogTracing`
 has the builtin option to set a random prior.
 
->>> homotopy = sgamesolver.homotopy.LogTracing(game, rho='random')
+.. code-block:: python
+    
+    homotopy = sgamesolver.homotopy.LogTracing(game, rho='random')
 
 Alternatively, one can use the method
 :py:meth:`sgamesolver.SGame.random_strategy` to generate a random prior,
 which also allows to set a seed.
 
->>> rho = homotopy.game.random_strategy(seed=run)
->>> homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
+.. code-block:: python
+    
+    rho = homotopy.game.random_strategy(seed=run)
+    homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
 
 Performing the prior search, including a progress report,
 can done as follows.

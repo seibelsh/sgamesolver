@@ -22,6 +22,7 @@ If you use the program for any published research, please cite
 .. note::
     These docs are work in progress and currently under construction.
 
+
 Installation
 ------------
 
@@ -32,6 +33,7 @@ sGameSolver is hosted on PyPI, so installation is usually as simple as
     pip install sgamesolver
 
 For alternative ways of installation, see section :doc:`installation`.
+
 
 Usage
 -----
@@ -53,6 +55,7 @@ Solving a stochastic game is done in three steps:
 
 A quick rundown of these steps:
 
+
 1. Set up a stochastic game
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -72,8 +75,9 @@ on how to create an :py:class:`SGame`
 which represents the stochastic game you want to solve.
 (By the way, sGameSolver can also solve
 normal form games, sequential games, repeated games,
-and also finite Markov decision problems
-– each of these is just a simple case of a stochastic game.)
+and also finite Markov decision problems -- each of these
+is just a simple case of a stochastic game.)
+
 
 2. Select and set up a homotopy function for your game
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,10 +96,10 @@ yielding a related, but much simpler problem,
 for which one can easily obtain a solution.
 This transformation is then gradually reversed while tracking the solution,
 until arriving at a solution for the original problem
-– here, the desired stationary equilibrium.
+- here, the desired stationary equilibrium.
 (You can find more background in section
 :doc:`homotopy_continuation`
-– although such knowledge is *not* necessary for using the program.)
+- although such knowledge is *not* necessary for using the program.)
 
 The (mathematical) function used for this transformation
 is called **homotopy function**.
@@ -123,6 +127,7 @@ More homotopy functions are to come!
 
 In any case, please make sure to cite the paper that
 introduces whichever homotopy you end up using.
+
 
 3. Let the homotopy solver do its job
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,6 +163,7 @@ Ideally, the solver will be able to find a solution
 without requiring any further interaction, as in this example.
 In cases where this does not work out, check out the section
 :doc:`Troubleshooting <troubleshooting>`.
+
 
 4. Aftermath
 ~~~~~~~~~~~~
@@ -200,6 +206,7 @@ as NumPy arrays and use them for further calculations or simulations.
     eq_strat = homotopy.equilibrium.strategies
     eq_values = homotopy.equilibrium.values
 
+
 Next Steps
 ----------
 
@@ -241,7 +248,6 @@ check out the :doc:`Theory <stochastic_games>` section.
 .. toctree::
     :hidden:
     :caption: Theory
-    :titlesonly:
 
     stochastic_games
     stationary_equilibrium

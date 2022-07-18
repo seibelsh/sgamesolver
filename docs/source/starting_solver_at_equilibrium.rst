@@ -24,6 +24,7 @@ If some other equilibrium is known, however,
 the solver can also start at this equilibrium
 and follow the auxiliary path to the connected equilibrium.
 
+
 Example: Stag hunt
 ------------------
 
@@ -43,20 +44,6 @@ The game can be implemented as follows.
 
 .. tabs::
 
-    .. group-tab:: Arrays
-
-        .. code-block:: python
-
-            import sgamesolver
-            import numpy as np
-
-            payoff_matrix = np.array([[[10, 1],
-                                    [8, 5]],
-                                    [[10, 8],
-                                    [1, 5]]])
-            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-            game.action_labels = ['stag', 'hare']
-
     .. group-tab:: Table
 
         ======  =========  =========  =========  =========  ==========
@@ -73,6 +60,20 @@ The game can be implemented as follows.
 
             import sgamesolver
             game = sgamesolver.SGame.from_table('path/to/table.xlsx')
+
+    .. group-tab:: Arrays
+
+        .. code-block:: python
+
+            import sgamesolver
+            import numpy as np
+
+            payoff_matrix = np.array([[[10, 1],
+                                    [8, 5]],
+                                    [[10, 8],
+                                    [1, 5]]])
+            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+            game.action_labels = ['stag', 'hare']
 
 This game has three equilibria, all symmetric:
 

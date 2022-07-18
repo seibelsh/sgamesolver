@@ -23,6 +23,7 @@ as illustrated in :numref:`predictorcorrector`.
 
     Predictor-corrector procedure.
 
+
 Direction
 ---------
 
@@ -32,6 +33,7 @@ In order to obtain the correct direction for path traversal,
 :math:`\alpha` is chosen such that the very first predictor step
 increases :math:`t` and is held constant thereafter,
 except in the case of crossing a bifurcation point.
+
 
 Bifurcation detection
 ---------------------
@@ -68,6 +70,7 @@ Specifically, the sign of :math:`\alpha` is swapped if
 with tangent :math:`p(\boldsymbol{y})` and minimum angle :math:`\gamma_{\min}`
 to classify changes in direction as bifurcation.
 
+
 Predictor tangent
 -----------------
 
@@ -86,6 +89,7 @@ Given step size :math:`ds` and tangent :math:`p(\boldsymbol{y}_k)`,
 the predictor point :math:`\boldsymbol{y}_k^0` is given by
 
 .. math:: \boldsymbol{y}_k^0 \;=\; \boldsymbol{y}_k + ds \: p(\boldsymbol{y}_k)
+
 
 Newton correction
 -----------------
@@ -114,6 +118,7 @@ To be conservative, the maximum norm is used to evaluate deviations
 from the path, i.e. the correction successfully terminates if
 
 .. math:: \max\{|H(\boldsymbol{y}_k^l)|\} < H_{\text{tol}}
+
 
 Newton robustness
 -----------------
@@ -153,6 +158,7 @@ to a different nearby segment, as illustrated in :numref:`jumping`.
 When converging to a different path, the Jacobian typically changes so much
 that the correction is not accepted.
 
+
 Step size adaption
 ------------------
 
@@ -165,6 +171,7 @@ And in case of successful and fast correction, the step size is increased
 by an inflation factor :math:`f_{\text{infl}} > 1`.
 The speed of convergence is considered fast if less than
 a certain number of corrector steps were performed until convergence.
+
 
 Convergence
 -----------

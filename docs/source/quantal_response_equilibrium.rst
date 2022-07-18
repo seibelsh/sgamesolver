@@ -1,6 +1,28 @@
 Quantal response equilibrium (QRE)
 ==================================
 
+The idea of quantal response equilibrium is
+to make stationary equilibrium "noisy".
+In a quantal response equilibrium, players play fully mixed strategies and
+the higher the long-term payoff associated with a given action,
+the larger its probability in the strategy mix.
+
+The noisiness is governed by precision :math:`\lambda\in\mathbb{R}_0^+`
+which also serves as homotopy parameter.
+At :math:`\lambda=0`, precision is zero
+and the quantal response equilibrium is fully noisy
+in the sense that all available actions are played with the same probability
+regardless of the associated payoffs.
+The higher :math:`\lambda` the less noisy the equilibrium.
+In the limit :math:`\lambda\rightarrow\infty`, precision becomes infinite
+and a stationary equilibrium is obtained:
+Only actions with the highest possible payoff are played
+while the probability of playing inferior actions tends to zero.
+
+
+Mathematical formulation
+------------------------
+
 In the quantal response framework, first introduced by
 `McKelvey and Palfrey (1995) <https://www.sciencedirect.com/science/article/pii/S0899825685710238>`_
 and
@@ -37,12 +59,12 @@ If a quantal response equilibrium converges
 as :math:`\lambda\rightarrow\infty`,
 the limiting point is a stationary equilibrium.
 
-The idea of the QRE homotopy (first introduced by
+The QRE homotopy (first introduced by
 `Turocy (2005) <https://www.sciencedirect.com/science/article/pii/S0899825604000739>`_
 and
 `Turocy (2010) <https://link.springer.com/article/10.1007/s00199-009-0443-3>`_)
-is to start at :math:`\lambda=0` with the centroid strategy profile
-and then let :math:`\lambda\rightarrow\infty`.
+starts at :math:`\lambda=0` with the centroid strategy profile
+and then lets :math:`\lambda\rightarrow\infty`.
 Alternatively, sGameSolver can also compute QRE
 for finite values of :math:`\lambda`,
 see section :doc:`qre_for_multiple_lambdas`.

@@ -22,11 +22,13 @@ Next, set up the solver by calling :py:meth:`~.solver_setup`:
 
     homotopy.solver_setup()
 
-:py:meth:`~.solver_setup` essentially does 2 things: It computes the starting point ``y0``
-(which is why you should fix homotopy parameters beforehand); and
-it instantiates a solver, an object of class :py:class:`HomContSolver` which is
-responsible for the path tracking algorithm. You can access it via the
-attribute :py:attr:`~.solver` of your homotopy:
+:py:meth:`~.solver_setup` essentially does two things:
+It computes the starting point ``y0``
+(which is why you should fix homotopy parameters beforehand);
+and it instantiates a solver,
+an object of class :py:class:`HomContSolver`
+which is responsible for the path tracking algorithm.
+You can access it via the attribute :py:attr:`~.solver` of your homotopy:
 
 >>> print(homotopy.solver)
 <sgamesolver.homcont.HomContSolver object at 0x000001FC9481FDC0>
@@ -39,9 +41,12 @@ Then, it will ideally be sufficient to just let it run its course:
 
     homotopy.solve()
 
-However, there might be situations in which you'd like to interact
-with it during solution: To pause or go back a bit,
-then adjust parameters before proceeding. The following can help with that.
+However, there might be situations in which
+you'd like to interact with it during solution:
+To pause or go back a bit,
+then adjust parameters before proceeding.
+The following can help with that.
+
 
 Saving and loading the solver state
 -----------------------------------
@@ -61,13 +66,13 @@ will reproduce the exact same results
 
 Storing the state has (at least) two use cases:
 
-- It allows to pause the computation, e.g. to reboot, or to
-  transfer to another machine without having to start from
-  the beginning again.
-- It allows to repeatedly re-start from the same position with
-  different parameter sets,
-  in particular when trying to navigate through a difficult, badly
-  conditioned area.
+- It allows to pause the computation,
+  e.g. to reboot, or to transfer to another machine
+  without having to start from the beginning again.
+- It allows to repeatedly re-start from the same position
+  with different parameter sets,
+  in particular when trying to navigate through
+  a difficult, badly conditioned area.
 
 The solver state can be saved to a text file
 using the method :py:meth:`~.save_file`:
@@ -75,40 +80,47 @@ using the method :py:meth:`~.save_file`:
 >>> homotopy.solver.save_file('example.txt')
 Current state saved as example.txt.
 
-You can then always return to that state later (even after a reboot or
-on another computer) by invoking the method :py:meth:`~.load_file`:
+You can then always return to that state later
+(even after a reboot or on another computer)
+by invoking the method :py:meth:`~.load_file`:
 
 >>> homotopy.solver.load_file('example.txt')
 State successfully loaded from example.txt.
 
 .. warning ::
-    The solver state does **not** include (i) solver parameters or (ii) the
-    game and homotopy parameters. If you want to restart from the saved state later on,
-    you need to ensure that these can be recreated (e.g. by keeping the
-    script that defined the game and set any parameters.)
+    The solver state does **not** include
+    (i) solver parameters or
+    (ii) the game and homotopy parameters.
+    If you want to restart from the saved state later on,
+    you need to ensure that these can be recreated
+    (e.g. by keeping the script that defined the game and set any parameters.)
 
-Note that the created file is in plain-text and can be opened with any text editor.
-It contains a description field where you can add comments or things to remember.
+Note that the created file is in plain-text
+and can be opened with any text editor.
+It contains a description field where
+you can add comments or things to remember.
+
 
 Storing the path
 ----------------
 
-If you enable path storing, the solver will keep a record
-of past states (updated after each successful step). This
-allows
+If you enable path storing, the solver will keep a record of past states
+(updated after each successful step).
+This allows
 
-(a) to return to any of the recorded states later on; for example
-    to adjust parameters and start again from there, if a difficult
-    spot is encountered.
+(a) to return to any of the recorded states later on;
+    for example to adjust parameters and start again from there,
+    if a difficult spot is encountered.
 
 (b) to later plot, analyze, or save the path the solver has taken.
-    This might be of interest in its own right (e.g. when analyzing the
-    QRE correpsondence of a game). It can also help with identifying if
+    This might be of interest in its own right
+    (e.g. when analyzing the QRE correpsondence of a game).
+    It can also help with identifying if
     the solver is stuck in a loop,
-    as explained in section :doc:`troubleshooting </troubleshooting>`.
+    as explained in section :doc:`troubleshooting <troubleshooting>`.
 
-Path storing has to be activated manually; this can be done any time
-after the solver has been set up:
+Path storing has to be activated manually;
+this can be done any time after the solver has been set up:
 
 .. code-block:: python
 
@@ -119,58 +131,81 @@ after the solver has been set up:
 
     homotopy.solver.start_storing_path()
 
-Note that storing the path comes at a small cost in
-performance and memory.
+Note that storing the path comes at a small cost in performance and memory.
 
 By the way: By default, the solver path will store 1000 past states;
-whenever that number is reached, all but every
-10th currently saved steps are discarded, and recording resumes normally.
-To if you want to change
-this maximum number, use e.g
+whenever that number is reached,
+all but every 10th currently saved steps are discarded,
+and recording resumes normally.
+To if you want to change this maximum number, use e.g.
 
->>>homotopy.solver.start_storing_path(num_steps=25000)
+.. code-block:: python
 
+    homotopy.solver.start_storing_path(max_steps=25000)
 
 
 Returning to a past step on the path
 ************************************
 
-If path storing has been enabled, it is possible to return to past
-steps via
+If path storing has been enabled as above,
+it is possible to return to past steps via
 
-.. code-block::
+.. code-block:: python
 
-    # continues the example above
     homotopy.solver.max_steps = 200
     homotopy.solve()
-    homotopy.solver.return_to_step(step_no = 123)
+    homotopy.solver.return_to_step(step_no=123)
 
-You could now change parameters and call ``.solve()`` again to start
-from this step. Note that you could also save this specific solver state for
-later use (see above) – note that the path itself is not stored
-when doing that.
+You could now change parameters and call :py:meth:`~.solve` again
+to start from this step.
+You could also save this specific solver state for later use (see above)
+- note that the path itself is *not* stored with the solver state.
+
 
 Plotting the path
 *****************
 
 The path can be plotted from the homotopy object
 (which, unlike the solver, is aware of the meaning of the variables,
-thus can split the plot into states etc.):abbr:
+thus can split the plot into states etc.)
+Continuing the example above:
 
 .. code-block::  python
 
-    # continues the example above
     homotopy.plot_path()
 
-By default, this uses arc length s as x-axis; to use step number instead,
-call ``.plot_path(x_axis="step")``. You can also zoom in
-on a specific range of s or of step number:
+By default, :py:meth:`~.plot_path` uses arc length ``s`` as x-axis,
+see :numref:`path_arc_length`.
 
+.. _path_arc_length:
+.. figure:: img/random_game_path_arc_length.svg
+    :width: 600
+    :alt: homotopy path in arc length
+    :align: center
+
+    Homotopy path under logarithmic tracing homotopy:
+    Strategies depending on arc length :math:`s`.
+
+To use the homotopy parameter ``t`` as x-axis instead, call:
 
 .. code-block:: python
 
-    # continues the example above
-    homotopy.plot_path(s_range=(500,700))
-    # or:
-    homotopy.plot_path(step_range=(125,175))
+    homotopy.plot_path(x_axis='t')
 
+... and to use the step number as x-axis, call:
+
+.. code-block:: python
+
+    homotopy.plot_path(x_axis='step')
+
+You can also zoom in on a specific range of arc length ``s``:
+
+.. code-block:: python
+
+    homotopy.plot_path(s_range=(500, 700))
+
+... or of step number:
+
+.. code-block:: python
+
+    homotopy.plot_path(step_range=(125, 175))

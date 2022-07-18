@@ -29,6 +29,7 @@ Intuitively, this resembles "bending" the problem until an easy solution
 is readily available, then reverting it back to the original form,
 while holding on to the solution.
 
+
 Mathematical formulation
 ------------------------
 
@@ -58,6 +59,7 @@ then contains a curve connecting the known solution
 :math:`(\boldsymbol{x}_0, 0)` to the desired solution
 :math:`(\boldsymbol{x}^{*}, \bar{t})`.
 
+
 Homotopy function and Jacobian matrix
 -------------------------------------
 
@@ -73,6 +75,7 @@ The corresponding Jacobian matrix
 is defined by
 
 .. math:: J(\boldsymbol{x}, t) = \frac{\partial H(\boldsymbol{x}, t)}{\partial (\boldsymbol{x}, t)}
+
 
 Parameterization
 ----------------
@@ -102,6 +105,7 @@ where :math:`J^{(-k)}(\boldsymbol{x}, t)` denotes the Jacobian matrix
 without its :math:`k`-th column and
 :math:`\eta \in \mathbb{R}^+` is a normalization factor.
 For details, see Zangwill and Garcia (1981, pp. 25 ff.).
+
 
 Principal branch
 ----------------

@@ -2,8 +2,10 @@ Example: Simple stochastic game
 ===============================
 
 Consider the following dynamic variation of Rock Paper Scissors.
-Two players play Rock Paper Scissors repeatedly and incorporate "scissor loading".
-Having solely played scissors in the previous round (while the opponent has not)
+Two players play Rock Paper Scissors repeatedly
+and incorporate "scissor loading".
+Having solely played scissors in the previous round
+(while the opponent has not)
 wins a tie on scissors in the next round.
 If both players have played scissors,
 neither of them gets the tie-breaking scissors advantage.
@@ -30,120 +32,168 @@ with
 
 .. math:: X(s) = \begin{cases} 0 & \text{if } s=0 \\ 1 & \text{if } s=1 \\ -1 & \text{if } s=2 \end{cases}
 
-This game can be defined by submitting payoffs, transitions
-and discount factors to :py:class:`SGame`.
+The game can be defined in sGameSolver as follows.
 
-.. code-block:: python
 
-    import sgamesolver
-    import numpy as np
+.. tabs::
 
-    payoff_matrices = [  # state0:
-                       np.array([[[0, -1,  1],
-                                  [1,  0, -1],
-                                  [-1, 1,  0]],
-                                 [[0,  1, -1],
-                                  [-1, 0,  1],
-                                  [1, -1,  0]]]),
-                         # state1:
-                       np.array([[[0, -1,  1],
-                                  [1,  0, -1],
-                                  [-1, 1,  1]],    # player0 wins tie on Scissors
-                                 [[0,  1, -1],
-                                  [-1, 0,  1],
-                                  [1, -1, -1]]]),  # player1 loses tie on Scissors
-                         # state2:
-                       np.array([[[0, -1,  1],
-                                  [1,  0, -1],
-                                  [-1, 1, -1]],    # player0 loses tie on Scissors
-                                 [[0,  1, -1],
-                                  [-1, 0,  1],
-                                  [1, -1,  1]]])]  # player1 wins tie on Scissors
+    .. group-tab:: Table
 
-    # transitions identical for each state
-    transition_matrices = [np.array([[[1, 0, 0],
-                                      [1, 0, 0],
-                                      [0, 0, 1]],
-                                     [[1, 0, 0],
-                                      [1, 0, 0],
-                                      [0, 0, 1]],
-                                     [[0, 1, 0],
-                                      [0, 1, 0],
-                                      [1, 0, 0]]])] * 3
+        One way to define this game is to provide a game table like this one.
 
-    common_discount_factor = 0.95
+        =======  ========  ========  ====  ====  ===========  ==========  ==========
+        state    a_p0      a_p1      u_p0  u_p1  phi_neutral  phi_adv_p0  phi_adv_p1
+        =======  ========  ========  ====  ====  ===========  ==========  ==========
+        delta                        0.95  0.95
+        neutral  rock      rock      0     0     1            0           0
+        neutral  rock      paper     -1    1     1            0           0
+        neutral  rock      scissors  1     -1    0            0           1
+        neutral  paper     rock      1     -1    1            0           0
+        neutral  paper     paper     0     0     1            0           0
+        neutral  paper     scissors  -1    1     0            0           1
+        neutral  scissors  rock      -1    1     0            1           0
+        neutral  scissors  paper     1     -1    0            1           0
+        neutral  scissors  scissors  0     0     1            0           0
+        adv_p0   rock      rock      0     0     1            0           0
+        adv_p0   rock      paper     -1    1     1            0           0
+        adv_p0   rock      scissors  1     -1    0            0           1
+        adv_p0   paper     rock      1     -1    1            0           0
+        adv_p0   paper     paper     0     0     1            0           0
+        adv_p0   paper     scissors  -1    1     0            0           1
+        adv_p0   scissors  rock      -1    1     0            1           0
+        adv_p0   scissors  paper     1     -1    0            1           0
+        adv_p0   scissors  scissors  1     -1    1            0           0
+        adv_p1   rock      rock      0     0     1            0           0
+        adv_p1   rock      paper     -1    1     1            0           0
+        adv_p1   rock      scissors  1     -1    0            0           1
+        adv_p1   paper     rock      1     -1    1            0           0
+        adv_p1   paper     paper     0     0     1            0           0
+        adv_p1   paper     scissors  -1    1     0            0           1
+        adv_p1   scissors  rock      -1    1     0            1           0
+        adv_p1   scissors  paper     1     -1    0            1           0
+        adv_p1   scissors  scissors  -1    1     1            0           0
+        =======  ========  ========  ====  ====  ===========  ==========  ==========
 
-    game = sgamesolver.SGame(payoff_matrices=payoff_matrices,
-                             transition_matrices=transition_matrices,
-                             discount_factors=common_discount_factor)
+        The game table specifies for each state and action profile
+        the corresponding payoffs and state transitions.
+        Additionally, the first row specifies the discount factors for each player.
+        Here, the players have been named *p0* and *p1*,
+        states are named *neutral*, *adv_p0* and *adv_p1*,
+        and actions are labeled *rock*, *paper* and *scissors*.
 
-    # optional: overwrite action labels
-    game.action_labels = ['rock', 'paper', 'scissors']
+        In the above table, the phi columns specify the probabilities
+        to transition to the corresponding states.
+        As all transitions are deterministic
+        (in each row: value 1 in one phi column, value 0 in the other phi columns),
+        the phi columns can be replaced by a columns called "to-state".
+        The resulting table looks as follows.
 
-The list ``payoff_matrices`` contains one payoff matrix for each state.
-Each payoff matrix is a NumPy array with dimensions
-:math:`I \times A_0 \times \dots \times A_{I}`,
-where the first dimension indexes the player and
-:math:`A_i` denotes the number of actions of player :math:`i`.
+        =======  ========  ========  ====  ====  ========
+        state    a_p0      a_p1      u_p0  u_p1  to_state
+        =======  ========  ========  ====  ====  ========
+        delta                        0.95  0.95
+        neutral  rock      rock      0     0     neutral
+        neutral  rock      paper     -1    1     neutral
+        neutral  rock      scissors  1     -1    adv_p1
+        neutral  paper     rock      1     -1    neutral
+        neutral  paper     paper     0     0     neutral
+        neutral  paper     scissors  -1    1     adv_p1
+        neutral  scissors  rock      -1    1     adv_p0
+        neutral  scissors  paper     1     -1    adv_p0
+        neutral  scissors  scissors  0     0     neutral
+        adv_p0   rock      rock      0     0     neutral
+        adv_p0   rock      paper     -1    1     neutral
+        adv_p0   rock      scissors  1     -1    adv_p1
+        adv_p0   paper     rock      1     -1    neutral
+        adv_p0   paper     paper     0     0     neutral
+        adv_p0   paper     scissors  -1    1     adv_p1
+        adv_p0   scissors  rock      -1    1     adv_p0
+        adv_p0   scissors  paper     1     -1    adv_p0
+        adv_p0   scissors  scissors  1     -1    neutral
+        adv_p1   rock      rock      0     0     neutral
+        adv_p1   rock      paper     -1    1     neutral
+        adv_p1   rock      scissors  1     -1    adv_p1
+        adv_p1   paper     rock      1     -1    neutral
+        adv_p1   paper     paper     0     0     neutral
+        adv_p1   paper     scissors  -1    1     adv_p1
+        adv_p1   scissors  rock      -1    1     adv_p0
+        adv_p1   scissors  paper     1     -1    adv_p0
+        adv_p1   scissors  scissors  -1    1     neutral
+        =======  ========  ========  ====  ====  ========
 
-The list ``transition_matrices`` contains one transition matrix for each state.
-Each transition matrix is a NumPy array with dimensions
-:math:`A_0 \times \dots \times A_2 \times S`,
-where the last dimension indexes the destination state.
+        To import either game table, use the :py:meth:`SGame.from_table` method.
+        It accepts xlsx, xls, csv, txt, and dta files.
 
-The argument ``discount_factors`` can either be common discount factor
-:math:`\delta \in [0,1)` or an array with dimension :math:`I`
-containing one discount factor :math:`\delta_i \in [0,1)`
-for each player :math:`i`.
-Here, a common discount factor is chosen.
+        .. code-block:: python
 
-As an alternative to submitting arrays for payoffs, transitions and
-discount factors, a game table can be provided.
+            import sgamesolver
+            game = sgamesolver.SGame.from_table('path/to/table.xlsx')
 
-=======  =========  =========  =========  =========  ===========  ==========  ==========
-state    a_p0       a_p1       u_p0       u_p1       phi_neutral  phi_adv_p0  phi_adv_p1
-=======  =========  =========  =========  =========  ===========  ==========  ==========
-delta                          0.95       0.95
-neutral  rock       rock       0          0          1            0           0
-neutral  rock       paper      -1         1          1            0           0
-neutral  rock       scissors   1          -1         0            0           1
-neutral  paper      rock       1          -1         1            0           0
-neutral  paper      paper      0          0          1            0           0
-neutral  paper      scissors   -1         1          0            0           1
-neutral  scissors   rock       -1         1          0            1           0
-neutral  scissors   paper      1          -1         0            1           0
-neutral  scissors   scissors   0          0          1            0           0
-adv_p0   rock       rock       0          0          1            0           0
-adv_p0   rock       paper      -1         1          1            0           0
-adv_p0   rock       scissors   1          -1         0            0           1
-adv_p0   paper      rock       1          -1         1            0           0
-adv_p0   paper      paper      0          0          1            0           0
-adv_p0   paper      scissors   -1         1          0            0           1
-adv_p0   scissors   rock       -1         1          0            1           0
-adv_p0   scissors   paper      1          -1         0            1           0
-adv_p0   scissors   scissors   1          -1         1            0           0
-adv_p1   rock       rock       0          0          1            0           0
-adv_p1   rock       paper      -1         1          1            0           0
-adv_p1   rock       scissors   1          -1         0            0           1
-adv_p1   paper      rock       1          -1         1            0           0
-adv_p1   paper      paper      0          0          1            0           0
-adv_p1   paper      scissors   -1         1          0            0           1
-adv_p1   scissors   rock       -1         1          0            1           0
-adv_p1   scissors   paper      1          -1         0            1           0
-adv_p1   scissors   scissors   -1         1          1            0           0
-=======  =========  =========  =========  =========  ===========  ==========  ==========
+    .. group-tab:: Arrays
 
-The game table specifies for each state and action profile
-the corresponding payoffs and state transitions.
-Additionally, the first row specifies the discount factors for each player.
-Here, the players have been named *p0* and *p1*,
-states are named *neutral*, *adv_p0* and *adv_p1*,
-and actions are labeled *rock*, *paper* and *scissors*.
+        This game can also be defined by directly submitting
+        payoffs, transitions and discount factors to :py:class:`SGame`.
 
-To import the game table, use the :py:meth:`SGame.from_table` method.
-It accepts xlsx, xls, csv, txt, and dta files.
+        .. code-block:: python
 
-.. code-block:: python
+            import sgamesolver
+            import numpy as np
 
-    import sgamesolver
-    game = sgamesolver.SGame.from_table('path/to/table.xlsx')
+            payoff_matrices = [  # state0:
+                               np.array([[[0, -1,  1],
+                                          [1,  0, -1],
+                                          [-1, 1,  0]],
+                                         [[0,  1, -1],
+                                          [-1, 0,  1],
+                                          [1, -1,  0]]]),
+                                 # state1:
+                               np.array([[[0, -1,  1],
+                                          [1,  0, -1],
+                                          [-1, 1,  1]],    # player0 wins tie on Scissors
+                                         [[0,  1, -1],
+                                          [-1, 0,  1],
+                                          [1, -1, -1]]]),  # player1 loses tie on Scissors
+                                 # state2:
+                               np.array([[[0, -1,  1],
+                                          [1,  0, -1],
+                                          [-1, 1, -1]],    # player0 loses tie on Scissors
+                                         [[0,  1, -1],
+                                          [-1, 0,  1],
+                                          [1, -1,  1]]])]  # player1 wins tie on Scissors
+
+            # transitions identical for each state
+            transition_matrices = [np.array([[[1, 0, 0],
+                                              [1, 0, 0],
+                                              [0, 0, 1]],
+                                             [[1, 0, 0],
+                                              [1, 0, 0],
+                                              [0, 0, 1]],
+                                             [[0, 1, 0],
+                                              [0, 1, 0],
+                                              [1, 0, 0]]])] * 3
+
+            common_discount_factor = 0.95
+
+            game = sgamesolver.SGame(payoff_matrices=payoff_matrices,
+                                    transition_matrices=transition_matrices,
+                                    discount_factors=common_discount_factor)
+
+            # optional: overwrite action labels
+            game.action_labels = ['rock', 'paper', 'scissors']
+
+        The list ``payoff_matrices`` contains one payoff matrix for each state.
+        Each payoff matrix is a NumPy array with dimensions
+        :math:`I \times A_0 \times \dots \times A_{I}`,
+        where the first dimension indexes the player and
+        :math:`A_i` denotes the number of actions of player :math:`i`.
+
+        The list ``transition_matrices`` contains one transition matrix for each state.
+        Each transition matrix is a NumPy array with dimensions
+        :math:`A_0 \times \dots \times A_2 \times S`,
+        where the last dimension indexes the destination state.
+
+        The argument ``discount_factors`` can either be common discount factor
+        :math:`\delta \in [0,1)` or an array with dimension :math:`I`
+        containing one discount factor :math:`\delta_i \in [0,1)`
+        for each player :math:`i`.
+        Here, a common discount factor is chosen.

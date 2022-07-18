@@ -103,6 +103,43 @@ game2 = sgamesolver.SGame.from_table(game_table)
 assert_games_equal(game, game2)
 
 
+game_table_2 = pd.DataFrame(data=[['delta', '', '', 0.95, 0.95, ''],
+                                  ['neutral', 'rock', 'rock', 0, 0, 'neutral'],
+                                  ['neutral', 'rock', 'paper', -1, 1, 'neutral'],
+                                  ['neutral', 'rock', 'scissors', 1, -1, 'adv_p1'],
+                                  ['neutral', 'paper', 'rock', 1, -1, 'neutral'],
+                                  ['neutral', 'paper', 'paper', 0, 0, 'neutral'],
+                                  ['neutral', 'paper', 'scissors', -1, 1, 'adv_p1'],
+                                  ['neutral', 'scissors', 'rock', -1, 1, 'adv_p0'],
+                                  ['neutral', 'scissors', 'paper', 1, -1, 'adv_p0'],
+                                  ['neutral', 'scissors', 'scissors', 0, 0, 'neutral'],
+
+                                  ['adv_p0', 'rock', 'rock', 0, 0, 'neutral'],
+                                  ['adv_p0', 'rock', 'paper', -1, 1, 'neutral'],
+                                  ['adv_p0', 'rock', 'scissors', 1, -1, 'adv_p1'],
+                                  ['adv_p0', 'paper', 'rock', 1, -1, 'neutral'],
+                                  ['adv_p0', 'paper', 'paper', 0, 0, 'neutral'],
+                                  ['adv_p0', 'paper', 'scissors', -1, 1, 'adv_p1'],
+                                  ['adv_p0', 'scissors', 'rock', -1, 1, 'adv_p0'],
+                                  ['adv_p0', 'scissors', 'paper', 1, -1, 'adv_p0'],
+                                  ['adv_p0', 'scissors', 'scissors', 1, -1, 'neutral'],
+
+                                  ['adv_p1', 'rock', 'rock', 0, 0, 'neutral'],
+                                  ['adv_p1', 'rock', 'paper', -1, 1, 'neutral'],
+                                  ['adv_p1', 'rock', 'scissors', 1, -1, 'adv_p1'],
+                                  ['adv_p1', 'paper', 'rock', 1, -1, 'neutral'],
+                                  ['adv_p1', 'paper', 'paper', 0, 0, 'neutral'],
+                                  ['adv_p1', 'paper', 'scissors', -1, 1, 'adv_p1'],
+                                  ['adv_p1', 'scissors', 'rock', -1, 1, 'adv_p0'],
+                                  ['adv_p1', 'scissors', 'paper', 1, -1, 'adv_p0'],
+                                  ['adv_p1', 'scissors', 'scissors', -1, 1, 'neutral']],
+                            columns=['state', 'a_p0', 'a_p1', 'u_p0', 'u_p1', 'to_state'])
+
+game3 = sgamesolver.SGame.from_table(game_table_2)
+
+assert_games_equal(game, game3)
+
+
 # %% QRE
 
 

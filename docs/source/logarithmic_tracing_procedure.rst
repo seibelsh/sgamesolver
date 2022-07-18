@@ -1,6 +1,23 @@
 Logarithmic tracing procedure
 =============================
 
+The idea of the logarithmic tracing procedure is to
+start from a common prior belief about players' strategies
+and gradually feed in information about players' true strategies.
+
+A homotopy parameter :math:`t` is introduced:
+At :math:`t=0`, players optimize their strategies only with respect to
+the prior belief about how the other players play.
+As :math:`t` increases, players optimize against a convex combination of
+prior and equilibrium belief.
+Finally, at :math:`t=1`, player optimize only with respect to equilibrium beliefs,
+i.e. they hold true beliefs about the other players' strategies and best-respond to them
+- stationary equilibrium is reached.
+
+
+Mathematical formulation
+------------------------
+
 In the **linear tracing procedure**, first introduced by
 `Harsanyi (1975) <https://link.springer.com/article/10.1007/BF01766187>`_
 and

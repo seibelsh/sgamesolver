@@ -10,6 +10,7 @@ sGameSolver can be installed using pip.
 If you are using MacOS or a linux distribution, please check the
 according section under "Cython" below.
 
+
 Installation with Anaconda
 --------------------------
 
@@ -90,6 +91,7 @@ to prepare your system:
         - If you are having trouble relating to OpenMP support, check below
           how to install without.
         - If all else fails, you can install without Cython altogether (see below).
+
 
 Installing without OpenMP
 -------------------------

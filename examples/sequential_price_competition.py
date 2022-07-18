@@ -106,3 +106,5 @@ game = sgamesolver.SGame(payoff_matrices=payoff_matrices,
                          discount_factors=common_discount_factor)
 
 solve_game(game)
+
+game_table = game.to_table()

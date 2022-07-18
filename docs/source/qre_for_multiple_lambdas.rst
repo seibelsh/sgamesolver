@@ -8,6 +8,7 @@ for intermediate values of :math:`\lambda`.
 Therefore, sGameSolver can perform path following not only until convergence,
 but also to specific target values of the homotopy parameter.
 
+
 Example: Stag hunt
 ------------------
 
@@ -27,24 +28,6 @@ We implement the game and prepare the solver as follows.
 
 .. tabs::
 
-    .. group-tab:: Arrays
-
-        .. code-block:: python
-
-            import sgamesolver
-            import numpy as np
-
-            payoff_matrix = np.array([[[10, 1],
-                                    [8, 5]],
-                                    [[10, 8],
-                                    [1, 5]]])
-            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-            game.action_labels = ['stag', 'hare']
-
-            homotopy = sgamesolver.homotopy.QRE(game)
-            homotopy.solver_setup()
-            homotopy.solver.verbose = 0  # make silent
-
     .. group-tab:: Table
 
         ======  =========  =========  =========  =========  ==========
@@ -62,6 +45,24 @@ We implement the game and prepare the solver as follows.
             import sgamesolver
 
             game = sgamesolver.SGame.from_table('path/to/table.xlsx')
+
+            homotopy = sgamesolver.homotopy.QRE(game)
+            homotopy.solver_setup()
+            homotopy.solver.verbose = 0  # make silent
+
+    .. group-tab:: Arrays
+
+        .. code-block:: python
+
+            import sgamesolver
+            import numpy as np
+
+            payoff_matrix = np.array([[[10, 1],
+                                    [8, 5]],
+                                    [[10, 8],
+                                    [1, 5]]])
+            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+            game.action_labels = ['stag', 'hare']
 
             homotopy = sgamesolver.homotopy.QRE(game)
             homotopy.solver_setup()

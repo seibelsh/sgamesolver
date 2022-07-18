@@ -8,8 +8,8 @@ for intermediate values of :math:`\lambda`.
 Therefore, sGameSolver can perform path following not only until convergence,
 but also to specific target values of the homotopy parameter.
 
-Example: Quantal response equilibria in the stag hunt game
-----------------------------------------------------------
+Example: Stag hunt
+------------------
 
 Consider the following version of the stag hunt game.
 
@@ -25,24 +25,50 @@ Consider the following version of the stag hunt game.
 
 We implement the game and prepare the solver as follows.
 
-.. code-block:: python
+.. tabs::
 
-    import sgamesolver
-    import numpy as np
+    .. group-tab:: Arrays
 
-    payoff_matrix = np.array([[[10, 1],
-                               [8, 5]],
-                              [[10, 8],
-                               [1, 5]]])
-    game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
-    game.action_labels = ['stag', 'hare']
+        .. code-block:: python
 
-    homotopy = sgamesolver.homotopy.QRE(game)
-    homotopy.solver_setup()
-    homotopy.solver.verbose = 0  # make silent
+            import sgamesolver
+            import numpy as np
 
-Let's define the values of :math:`\lambda` that we are interested in
-and set up an empty container for the corresponding quantal response equilibria.
+            payoff_matrix = np.array([[[10, 1],
+                                    [8, 5]],
+                                    [[10, 8],
+                                    [1, 5]]])
+            game = sgamesolver.SGame.one_shot_game(payoff_matrix=payoff_matrix)
+            game.action_labels = ['stag', 'hare']
+
+            homotopy = sgamesolver.homotopy.QRE(game)
+            homotopy.solver_setup()
+            homotopy.solver.verbose = 0  # make silent
+
+    .. group-tab:: Table
+
+        ======  =========  =========  =========  =========  ==========
+        state   a_player0  a_player1  u_player0  u_player1  phi_state0
+        ======  =========  =========  =========  =========  ==========
+        delta                         0          0
+        state0  stag       stag       10         10         0
+        state0  stag       hare       1          8          0
+        state0  hare       stag       8          1          0
+        state0  hare       hare       5          5          0
+        ======  =========  =========  =========  =========  ==========
+
+        .. code-block:: python
+
+            import sgamesolver
+
+            game = sgamesolver.SGame.from_table('path/to/table.xlsx')
+
+            homotopy = sgamesolver.homotopy.QRE(game)
+            homotopy.solver_setup()
+            homotopy.solver.verbose = 0  # make silent
+
+Let's define the values of :math:`\lambda` that we are interested in and
+set up an empty container for the corresponding quantal response equilibria.
 Since the game and thus all quantal response equilibria are symmetric,
 we only need to keep track of the strategies of player 0.
 

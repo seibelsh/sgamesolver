@@ -1,10 +1,9 @@
 Predictor-corrector procedure
 =============================
 
-.. _predictor_corrector_procedure:
-
-Predictor-corrector procedures are the standard tool to trace differentiable
-homotopy paths. As the name suggests, these are two-phase procedures,
+**Predictor-corrector procedures** are the standard tool
+to trace differentiable homotopy paths.
+As the name suggests, these are two-phase procedures,
 sequentially performing a prediction step and multiple correction steps.
 In the predictor step, the path at the current point
 :math:`\boldsymbol{y}_k := (\boldsymbol{x}, t)_k`
@@ -49,8 +48,9 @@ by another branch at some point, as illustrated in :numref:`bifurcation`.
     A simple bifurcation.
 
 These so-called simple bifurcations are singular points of the Jacobian matrix
-at which the direction of the path may be reversed
-(see Allgower and Georg, 1990, chapter 8).
+at which the direction of the path may be reversed (see
+`Allgower and Georg (1990) <https://link.springer.com/book/10.1007/978-3-642-61257-2>`_),
+chapter 8).
 
 In order to ensure continuation after the bifurcation,
 simple bifurcation points must be detected and,
@@ -131,8 +131,8 @@ The correction is considered unsuccessful if either
 the predictor step size exceeds a threshold, or
 (3) the contraction of consecutive corrector steps,
 i.e. the ratio :math:`\frac{d_l}{d_{l-1}}` of distances exceeds a threshold.
-(4) Finally, following Choi et al. (1996), the solver additionally requires
-that the determinant of the augmented Jacobian
+(4) Finally, following `Choi et al. (1996) <https://epubs.siam.org/doi/10.1137/1026093>`_,
+the solver additionally requires that the determinant of the augmented Jacobian
 does not change too much in the correction.
 Specifically, the correction is also considered unsuccessful if
 

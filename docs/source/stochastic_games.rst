@@ -1,7 +1,7 @@
-Definition: Stochastic game
-===========================
+Stochastic games
+================
 
-A *stochastic game* is a sequence of normal-form games.
+A **stochastic game** is a sequence of normal-form games.
 Each period, the corresponding normal-form game is characterized by a *state*.
 At the beginning of a period, players learn the current state.
 Afterwards, they interact and obtain payoffs accordingly.
@@ -34,3 +34,6 @@ Defining a stochastic game requires three inputs:
 payoffs :math:`\boldsymbol{u}`, transitions :math:`\boldsymbol{\phi}`
 and discount factors :math:`\boldsymbol{\delta}`
 (their dimensions reveal states, players and actions).
+
+The standard solution concept for stochastic games is
+:doc:`stationary equilibrium <stationary_equilibrium>`.

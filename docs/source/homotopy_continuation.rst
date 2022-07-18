@@ -1,9 +1,7 @@
 Homotopy continuation
 =====================
 
-.. _homotopy_continuation:
-
-Homotopy continuation denotes a class of numerical techniques to solve
+**Homotopy continuation** denotes a class of numerical techniques to solve
 high-dimensional nonlinear systems of equations.
 The basic idea is the following.
 Given a complicated problem to solve,
@@ -11,7 +9,9 @@ first take a similar but simple problem and solve it.
 Then, gradually transform the simple problem into the complicated problem
 while holding on to the solution along the way.
 For excellent textbook treatments of homotopy methods see
-Zangwill and Garcia (1981) and Allgower and Georg (1990).
+`Zangwill and Garcia (1981) <https://epubs.siam.org/doi/10.1137/1026093>`_
+and
+`Allgower and Georg (1990) <https://link.springer.com/book/10.1007/978-3-642-61257-2>`_.
 
 Compared to most other numerical methods,
 homotopy continuation methods have the major advantage of working globally.
@@ -138,4 +138,5 @@ and :numref:`feasible`.
 All homotopies implemented in sGameSolver are guaranteed to feature a
 well-defined principal branch for every possible game.
 Tracing this path to arrive at the desired equilibrium
-is done numerically by predictor-corrector iterations.
+is done numerically by
+:doc:`predictor-corrector iterations <predictor_corrector_procedure>`.

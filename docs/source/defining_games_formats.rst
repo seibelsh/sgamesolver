@@ -65,20 +65,20 @@ Specifically:
 
 - The column "state" contains the label of the current state.
 
-- A set of columns of the named "a_{player label}", one for each player,
+- A set of columns of the named "a\_{player label}", one for each player,
   which together specify the action profile the row refers to.
 
   - If your players are called "p0", "p1", and "p2", these columns
-    are headed "a_p0", "a_p1", "a_p2"; if your players are "firm" and
-    "consumer", "a_firm" and "a_consumer", etc.
+    are headed "a\_p0", "a\_p1", "a\_p2"; if your players are "firm" and
+    "consumer", "a\_firm" and "a\_consumer", etc.
 
-- A set of columns "u_{player label}", specifying the instantaneous
+- A set of columns "u\_{player label}", specifying the instantaneous
   utility to the respective player from said action set.
 
   - The player labels need to match exactly those from the
-    "a_"-columns
+    "a\_"-columns
 
-- A set of columns "phi_{state label}", one for each state. These
+- A set of columns "phi\_{state label}", one for each state. These
   columns indicate the probability of reaching that state next if
   the given action profile is played in the current state.
 
@@ -89,7 +89,7 @@ Specifically:
 
 - Finally, the table must have one row used to specify discount
   factors. This row has "delta" in the state column, and each
-  player's discount factor in their "u_"-column. All other
+  player's discount factor in their "u\_"-column. All other
   fields should be empty.
 
 
@@ -98,28 +98,28 @@ Some more details
 
 - General remarks
 
-  - Columns and rows can be in arbitrary order.
-    (Note that sGameSolver will order players by
-    the order of their "a_"-columns, and states and actions by the
-    order their labels first appear in the state / "a_" columns.)
+  - All columns and rows can be in arbitrary order.
+    (But note that sGameSolver will order players by
+    the order of their "a\_"-columns, and states and actions by the
+    order their labels first appear in the state / "a\_" columns.)
   - The table can have arbitrary additional columns, which will
     just be ignored. (You might find it helpful to store
     additional variables used to compute u or phi.)
   - All numbers will be converted to double precision when
     converting the table to a game; the format of the table cells
     does not matter (e.g. excel string-formatted fields are fine,
-    as long as the values are entered in the usual decimal format.)
+    as long as the entered values follow the usual decimal format).
 
 - State column
 
   - You can use any strings you would like as labels for the individual states.
   - You could e.g. number them "s0", "s1", "s2".
-  - ... or, give them more descriptive names such as  "high demand", "low demand",
-  - ... or even "d=0", "d=0.1",... etc.
-  - However, it must be possible to create the "phi_-{state label}"
+  - ... or, give them more descriptive names such as "high demand", "low demand",
+  - ... or even "d=0", "d=0.1", ...
+  - However, it must be possible to create the "phi\_-{state label}"
     columns headers. (E.g., in stata, "p=1/3" would not be a
     possible state label, because "phi_p=1/3" is not a legal
-    column name.)
+    column name in stata. In excel or csv, this would be fine.)
 
 - Action columns
 
@@ -128,10 +128,10 @@ Some more details
     sGameSolver will truncate action labels to 5 characters
     (e.g. when printing equilibria).
   - The action labels of different players or the same player
-    in different states may match, but
+    in different states can match, but
     of course do not have to.
   - If a player has no decision to make in a specific state, you can just leave
-    their "a_"-field empty, or write something like
+    their "a\_"-field empty, or write something like
     "do nothing" if you prefer.
   - (Technically, a player being inactive in a state
     is implemented as them having a singleton action set.)
@@ -140,13 +140,13 @@ Some more details
 
   - As mentioned, there is an alternative syntax if all transitions
     are deterministic: You can then
-    replace all "phi_"-columns by a single column called "to_state"
+    replace all "phi\_"-columns by a single column called "to_state"
     which just contains the label of the resulting state.
     LINK EXAMPLE where both are discussed.
-    (Don't mix formats: sGameSolver will complain if
+    (But don't mix formats: sGameSolver will raise an error if
     it finds both types of columns.)
-  - Note that if using the "phi_"-format, each state appearing in
-    the state column must have a corresponding "phi_"-column.
+  - Note that if using the "phi\_"-format, each state appearing in
+    the state column *must* have a corresponding "phi\_"-column.
   - Also note that sGameSolver does not enforce a sum-to-1
     condition. Sums smaller than 1 are actually fine: the
     remaining probability just indicates the chance for
@@ -164,7 +164,7 @@ states, players and actions are primarily represented by their index
 (i.e. 0, 1, 2, ... keep in mind Python is 0-indexed.
 It is possible to specify labels for each, but this is more
 of an afterthought.) Thus, when using this format you should
-first  decide on a way to enumerate your states,
+first decide on a way to enumerate your states,
 your players, and the action sets of all players in all states.
 The information should then be arranged as follows.
 
@@ -172,7 +172,8 @@ The information should then be arranged as follows.
 corresponding to state0, the second to state 1 etc.:
 
 .. code-block:: python
-   u_list = [u_state0, u_state1, ...]
+
+  u_list = [u_state0, u_state1, ...]
 
 The first index of each of these arrays refers to the player;
 the second to the action of player0; the third to the section of
@@ -191,6 +192,7 @@ corresponds to the player having a singleton action set.
 **Transitions** are likewise passed as list of arrays:
 
 .. code-block:: python
+
    phi_list = [phi_state0, phi_state1, ...]
 
 Here, the first list element contains the transition probabilities
@@ -200,32 +202,75 @@ number of actions of player0 in the current state. (Of course,
 the numbers of actions of all players must be the same
 between the u- and phi-array of each state.) The last index refers
 to the **to-state** of the respective transition probability.
-phi_0[1,2,4] thus represents the probability to go
+phi\_0[1, 2, 4] thus represents the probability to go
 from current state0 to state4 if player0 plays their action1
 and player2 plays action2. Note that "staying in state0" is
 the same as "transitioning from state0 to state0", e.g. if
-the probability is to be 0.4, you'll need to set phi_0[1,2,0]=0.4.
+the probability is to be 0.4, you'll need to set phi\_0[1, 2, 0]=0.4.
 
 Also note that sGameSolver does not enforce a sum-to-1 condition
 over the last dimension of these arrays.
-Sums  smaller than 1 are actually fine: the remaining probability
+Sums smaller than 1 are actually fine: the remaining probability
 just indicates the chance for the game to end after the respective
 action profile. (Sums larger than 1 may mean that values
 aren't well-defined and should be avoided.)
 
-The final piece needed to define a game are discount factors.
+The final piece needed to define a game are **discount factors**.
 These can be passed as a list or numpy array,
 with one entry for each player.
-If all players share a discount factor, you can
-just pass a single float as well.
+If all players share the same discount factor, you can
+alternatively just pass a single float.
 
 .. code-block:: python
+
    delta = [.95, .85]
-    # or, if all players discount with .9:
-    delta = .9
+   # or, if all players discount with .9:
+   delta = .9
 
 Once all these objects are in place, you can create the game as
 follows:
 
 .. code-block:: python
+
    game = sgamesolver.SGame(u_list, phi_list, delta)
+
+
+Finally, once the game has been created, you can add labels for
+state, players and actions. This is fully optional and only
+used for some output, e.g. when printing equilibria;
+the default labels just enumerate all three.
+For states and players, labels are always a list
+of strings of the respective length:
+
+.. code-block:: python
+
+   # assuming two players and three states:
+   game.state_labels = ["low", "medium", "high"]
+   game.player_labels = ["buyer", "seller"]
+
+For actions, there are currently two possibilities:
+Either you provide a single list of strings, which
+will be used for all states and players (the list should
+have as length at least the maximum number of actions of
+any single agent.) Or you provide a nested list of
+strings with depth 3 (a list-of-lists-of-lists-of-strings);
+the outermost list corresponds to states, the next to players,
+and then the inner to
+actions. For example, ``action_lists[0][1][2]`` 
+should be the label
+of action2 of player1 in state0.
+
+.. code-block:: python
+   # single list:
+   game.action_labels = ["p=0", "p=.1", "p=.2", ] # etc
+
+   # nested lists:
+   game.action_labels = [[["a_0_0_0", "a_0_0_1"],
+                          ["a_0_1_0", "a_0_1_1"]],
+                          #etc
+                          ]
+
+
+Note that while there is no limit on length for action labels,
+some functionality (e.g.
+equilibrium output) will truncate them to five characters.

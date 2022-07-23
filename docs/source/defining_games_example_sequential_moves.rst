@@ -17,7 +17,7 @@ each producing a homogeneous product at zero marginal cost.
 The two firms compete on price to maximize the net present value
 of profits given a common discount factor.
 Time runs in discrete periods and firms take turns to set their prices.
-In odd periods, firm 1 sets its price and firm 2's price is locked in,
+In odd periods, firm 0 sets its price and firm 1's price is locked in,
 and vice versa in even periods.
 Each period, firms face market demand :math:`d(p) = 2 - p`
 which goes to the firm with the lowest price.
@@ -40,6 +40,45 @@ reacting to the price :math:`p_i` of firm :math:`i`.
 
 The game can be implemented in sGameSolver as follows.
 
+Some preparation:
+
+.. code-block:: python
+
+    import numpy as np
+    import itertools
+
+    NUM_PLAYERS = 2
+    MARGINAL_COSTS = 0
+    PRICE_GRID = np.linspace(0, 1.1, 12)
+
+    def demand_fun(price: float) -> float:
+        return 2 - price
+
+    def profit_fun(prices: np.ndarray) -> np.ndarray:
+        # number of firms at minimum price, market shares and demand
+        num_players_at_min_price = (prices == prices.min()).sum()
+        market_shares = [1/num_players_at_min_price if price == prices.min() else 0 for price in prices]
+        demand = np.array([market_shares[player] * demand_fun(price) for player, price in enumerate(prices)])
+        return (prices - MARGINAL_COSTS) * demand
+
+    # state space [(player_to_move, competitor_prices)]
+    state_space: list[tuple[int, np.ndarray]] = []
+    for player in range(NUM_PLAYERS):
+        for other_prices in itertools.product(PRICE_GRID, repeat=NUM_PLAYERS - 1):
+            state_space.append((player, np.array(other_prices)))
+
+    def get_prices(state: tuple[int, np.ndarray], price: float) -> np.ndarray:
+        player, other_prices = state
+        return np.insert(other_prices, player, price)
+
+    def get_next_state(state: tuple[int, np.ndarray], price: float) -> np.ndarray:
+        player, other_prices = state
+        prices = get_prices(state, price)
+        next_player = (player + 1) % NUM_PLAYERS
+        next_other_prices = np.delete(prices, next_player)
+        return (next_player, next_other_prices)
+
+Now we can define a game table or the corresponding arrays.
 
 .. tabs::
 
@@ -80,106 +119,95 @@ The game can be implemented in sGameSolver as follows.
         (1, 1.1)  1.1        1.1        0.495      0.495      (0, 1.1)
         ========  =========  =========  =========  =========  ========
 
-        As always, the game table can be imported by calling :py:meth:`SGame.from_table`:
+        The game table can be generated in Python as follows.
+
+        .. code-block:: python
+
+            import pandas as pd
+
+            common_discount_factor = 0.95
+            game_table = pd.DataFrame(data=[['delta'] + ['']*NUM_PLAYERS + [common_discount_factor]*NUM_PLAYERS + [np.nan]],
+                                      columns=['state', 'a_p0', 'a_p1', 'u_p0', 'u_p1', 'to_state'])
+
+            for state in state_space:
+                player, other_prices = state
+
+                for price in PRICE_GRID:
+                    prices = get_prices(state, price)
+                    payoffs = profit_fun(prices)
+                    next_state = get_next_state(state, price)
+
+                    new_row = pd.DataFrame(data=[[str(state)] + [str(p) for p in prices] + list(payoffs) + [str(next_state)]],
+                                           columns=['state', 'a_p0', 'a_p1', 'u_p0', 'u_p1', 'to_state'])
+
+                    game_table = pd.concat([game_table, new_row], ignore_index=True)
+
+        As always, the game table can be imported by calling :py:meth:`~.SGame.from_table`:
 
         .. code-block:: python
 
             import sgamesolver
+
+            # import Pandas DataFrame:
+            game = sgamesolver.SGame.from_table(game_table)
+            # or Excel file:
             game = sgamesolver.SGame.from_table('path/to/table.xlsx')
 
     .. group-tab:: Arrays
 
         .. code-block:: python
 
-            import sgamesolver
-            import numpy as np
-            import itertools
+            def make_payoff_matrix(state: tuple[int, np.ndarray]) -> np.ndarray:
+                player, other_prices = state
 
-            num_players = 2     # number of firms
-            MC = 0              # marginal costs
+                # player can choose a price, other players have only one dummy action
+                a_dims = np.ones(NUM_PLAYERS, dtype=np.int32)
+                a_dims[player] = len(PRICE_GRID)
+                payoff_matrix = np.nan * np.ones((NUM_PLAYERS,) + tuple(a_dims))
 
-            # price grid
-            p_min = 0
-            p_step = 0.1
-            p_max = 1 + p_step
-            num_prices = int(1 + (p_max-p_min) / p_step)
-            P = np.linspace(p_min, p_max, num_prices)
+                for idx, price in enumerate(PRICE_GRID):
+                    prices = get_prices(state, price)
+                    payoffs = profit_fun(prices)
 
-            # demand function
-            def d(p):
-                return 2-p
+                    action_profile = np.zeros(NUM_PLAYERS, dtype=np.int32)
+                    action_profile[player] = idx
 
-            # profit function
-            def Pi(p):
-                # number of firms at minimum price, market shares and demand
-                N = (p == p.min()).sum()
-                shares = [1/N if p_i == p.min() else 0 for p_i in p]
-                D = np.array([shares[i] * d(p_i) for i, p_i in enumerate(p)])
-                return (p - MC) * D
+                    for p in range(NUM_PLAYERS):
+                        payoff_matrix[(p,) + tuple(action_profile)] = payoffs[p]
 
-            # state space [(player_to_move, competitor_prices)]
-            states = []
-            for i in range(num_players):
-                for a_not_i in itertools.product(
-                        range(num_prices), repeat=num_players-1):
-                    states.append((i, np.array(a_not_i)))
-            num_states = len(states)
-            stateIDs = np.arange(num_states)
-            state_dict = dict(zip(stateIDs, states))
+                return payoff_matrix
 
-            # functions for convenience
-            def get_state(stateID):
-                return state_dict[stateID]
 
-            def get_stateID(state):
-                for s, state_ in state_dict.items():
-                    if state_ == state:
-                        return s
-                return None
+            def make_transition_matrix(state: tuple[int, np.ndarray]) -> np.ndarray:
+                player, other_prices = state
 
-            def payoff_matrix(s):
-                i, a_not_i = get_state(s)
-                # dimensions of action profile a in state s
-                #   player i can choose a price
-                #   other players have only one dummy action
-                a_dims = np.ones(num_players, dtype=np.int32)
-                a_dims[i] = len(P)
-                a_dims = tuple(a_dims)
-                matrix = np.nan * np.ones((num_players,) + a_dims)
-                for j in range(num_players):
-                    for a_profile in np.ndindex(a_dims):
-                        # insert action of player i into action profile
-                        a = np.insert(a_not_i, i, a_profile[i])
-                        prices = P[a]
-                        matrix[(j,)+a_profile] = Pi(prices)[j]
-                return matrix
+                a_dims = np.ones(NUM_PLAYERS, dtype=np.int32)
+                a_dims[player] = len(PRICE_GRID)
+                transition_matrix = np.zeros(tuple(a_dims) + (len(state_space),))
 
-            # vector of transition probabilities given action profile
-            def transition_probs(s, a_profile):
-                i, a_not_i = get_state(s)
-                a = np.insert(a_not_i, i, a_profile[i])
-                i_next = (i + 1) % num_players
-                a_not_i_next = np.delete(a, i_next)
-                s_next = get_stateID((i_next, a_not_i_next))
-                probs = np.zeros(num_states)
-                probs[s_next] = 1
-                return probs
+                for idx, price in enumerate(PRICE_GRID):
+                    next_state = get_next_state(state, price)
+                    transition_probs = [1 if s == next_state else 0 for s in state_space]
 
-            # full transition matrix
-            def transition_matrix(s):
-                i, a_not_i = get_state(s)
-                a_dims = np.ones(num_players, dtype=np.int32)
-                a_dims[i] = num_prices
-                a_dims = tuple(a_dims)
-                matrix = np.nan * np.ones(a_dims + (num_states,))
-                for a in np.ndindex(a_dims):
-                    matrix[a] = transition_probs(s, a)
-                return matrix
+                    action_profile = np.zeros(NUM_PLAYERS, dtype=np.int32)
+                    action_profile[player] = idx
 
-            payoff_matrices = [payoff_matrix(s) for s in range(num_states)]
-            transition_matrices = [transition_matrix(s) for s in range(num_states)]
+                    for s in range(len(state_space)):
+                        transition_matrix[tuple(action_profile) + (s,)] = transition_probs[s]
+
+                return transition_matrix
+
+
+            payoff_matrices = [make_payoff_matrix(state) for state in state_space]
+            transition_matrices = [make_transition_matrix(state) for state in state_space]
             common_discount_factor = 0.95
 
+        The :py:class:`~.SGame` class can then be initialized as usual:
+
+        .. code-block:: python
+
+            import sgamesolver
+
             game = sgamesolver.SGame(payoff_matrices=payoff_matrices,
-                                    transition_matrices=transition_matrices,
-                                    discount_factors=common_discount_factor)
+                                     transition_matrices=transition_matrices,
+                                     discount_factors=common_discount_factor)

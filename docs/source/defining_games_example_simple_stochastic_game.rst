@@ -85,7 +85,7 @@ The game can be defined in sGameSolver as follows.
         to transition to the corresponding states.
         As all transitions are deterministic
         (in each row: value 1 in one phi column, value 0 in the other phi columns),
-        the phi columns can be replaced by a columns called "to-state".
+        the phi columns can be replaced by a column called "to_state".
         The resulting table looks as follows.
 
         =======  ========  ========  ====  ====  ========

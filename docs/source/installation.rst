@@ -82,7 +82,7 @@ to prepare your system:
             conda install numpy scipy pandas matplotlib cython gxx_linux-64
             pip install sgamesolver
 
-    .. group-tab:: MaxOS
+    .. group-tab:: MacOS
 
         - Unfortunately, we have neither experience nor an opportunity
           to test this setup.

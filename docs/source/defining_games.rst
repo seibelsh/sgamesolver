@@ -109,7 +109,8 @@ The examples in this tutorial further demonstrate how to enter specific games
 
           - Note that each state appearing in the state column must have a
             phi-column.
-          - If the game has deterministic transitions,
+          - If the transitions in your game are deterministic or sparse
+            (meaning only a few possible successor states for each action profile),
             a shorter syntax is available: see details below.
 
         - Finally, the table must have one row used to specify discount
@@ -161,11 +162,23 @@ The examples in this tutorial further demonstrate how to enter specific games
 
         - State transitions
 
-          - As mentioned, there is an alternative syntax if all transitions
-            are deterministic: You can then
-            replace all "phi\_"-columns by a single column called "to_state"
-            which just contains the label of the resulting state.
-            The section on the dynamic variation of the Rock Paper Scissors game
+          - As mentioned, there is an alternative syntax that is useful if transitions
+            are deterministic or sparse
+          - You can then replace all "phi\_"-columns by a single column called "to_state"
+          - The "to_state"-column should contain either
+
+            - simply the label of the resulting state, if the transition is deterministic
+            - a string that lists all possible successor states with their respective probabilities.
+              Use a colon to separate state label and probability, and a comma before listing the next state.
+              Example: ``label_A: 0.4, label_X: 0.1, label_E: 0.25``.
+            - States can be ordered whichever way you like, and whether and how you use whitespace is irrelevant.
+            - In this format, a pair of surrounding curly braces (``{ }``) is ignored if present; the
+              same holds for double quotes (``" "``) surrounding state labels. The example above is thus the same as
+              ``{"label_A" : 0.4, "label_X" : 0.1, "label_E" : 0.25}``. (This rule makes it easy to use JSON-formatted
+              data for this column.)
+            - (Note that state labels of course can not contain colons or commas if using this format.)
+
+          - The section on the dynamic variation of the Rock Paper Scissors game
             (see :doc:`defining_games_example_simple_stochastic_game`)
             discusses both options.
             But don't mix formats: sGameSolver will raise an error if
@@ -193,7 +206,7 @@ The examples in this tutorial further demonstrate how to enter specific games
         The information should then be arranged as follows.
 
         **Payoffs** are passed as a list of numpy arrays, the first
-        corresponding to state0, the second to state 1 etc.:
+        corresponding to state0, the second to state1 etc.:
 
         .. code-block:: python
 
@@ -236,7 +249,7 @@ The examples in this tutorial further demonstrate how to enter specific games
         Also note that sGameSolver does not enforce a sum-to-1 condition
         over the last dimension of the phi-arrays.
         Sums smaller than 1 are actually fine: the remaining probability
-        just indicates the chance for the game to end after the respective
+        just represents the chance for the game to end after the respective
         action profile. (Sums larger than 1 may mean that values
         aren't well-defined and should be avoided.)
 
@@ -262,7 +275,7 @@ The examples in this tutorial further demonstrate how to enter specific games
 
         Finally, once the game has been created, you can add labels for
         state, players and actions. This is fully optional and only
-        used for some output, e.g. when printing equilibria;
+        used to make some output more readable, e.g. when printing equilibria;
         the default labels just enumerate all three.
         For states and players, labels are always a list
         of strings of the respective length:

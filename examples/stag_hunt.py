@@ -140,12 +140,13 @@ strategies = np.zeros(shape=(runs, 4), dtype=np.float64)
 
 for run in range(runs):
     # homotopy = sgamesolver.homotopy.LogTracing(game, rho='random')
-    rho = homotopy.game.random_strategy(seed=run)
+    rho = game.random_strategy(seed=run)
     homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
     homotopy.solver_setup()
     homotopy.solver.verbose = 0  # make silent
     homotopy.solve()
     strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 0
+    print(f"done run {run+1}/{runs}")
 
 print(np.unique(strategies, axis=0))
 

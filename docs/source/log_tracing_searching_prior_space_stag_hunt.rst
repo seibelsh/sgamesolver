@@ -85,7 +85,7 @@ sGameSolver's logarithmic tracing homotopy class
 has the builtin option to set a random prior.
 
 .. code-block:: python
-    
+
     homotopy = sgamesolver.homotopy.LogTracing(game, rho='random')
 
 Alternatively, one can use the method
@@ -93,22 +93,23 @@ Alternatively, one can use the method
 which also allows to set a seed.
 
 .. code-block:: python
-    
+
     rho = homotopy.game.random_strategy(seed=run)
     homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
 
 Performing the prior search, including a progress report,
-can done as follows.
+can be done as follows.
 
 .. code-block:: python
 
     for run in range(runs):
-        rho = homotopy.game.random_strategy(seed=run)
+        rho = game.random_strategy(seed=run)
         homotopy = sgamesolver.homotopy.LogTracing(game, rho=rho)
         homotopy.solver_setup()
         homotopy.solver.verbose = 0  # make silent
         homotopy.solve()
         strategies[run] = homotopy.equilibrium.strategies[0].flatten().round(4)  # state 0
+        print(f"done run {run+1}/{runs}")
 
 A quick look at the equilibrium strategies reveals that
 the solver found the two equilibria in pure strategies,

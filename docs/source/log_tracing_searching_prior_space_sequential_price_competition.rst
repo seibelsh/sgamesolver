@@ -19,12 +19,10 @@ In case of equal prices, demand is split evenly.
 Finally, firms choose prices from a grid
 :math:`P = \{0.0, 0.1, ..., 1.0, 1.1\}`.
 
-For further information on the state space and
-how to implement this game in sGameSolver,
-see :doc:`/defining_games_example_sequential_moves`.
-
 The following assumes that the SGameSolver and NumPy packages
-have been imported and that the ``game`` has been defined.
+have been imported and that the ``game`` has been defined
+as in :doc:`/defining_games_example_sequential_moves`,
+which also offers further information on the underlying state space.
 
 .. code-block:: python
 
